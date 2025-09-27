@@ -1,0 +1,1 @@
+DELETE FROM books WHERE book_id = 'BOOK_003' AND publication_year = 1949;

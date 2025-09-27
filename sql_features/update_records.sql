@@ -1,0 +1,1 @@
+UPDATE authors SET name = 'Joanne Kathleen Rowling' WHERE author_id = 'AUTHOR_001';
