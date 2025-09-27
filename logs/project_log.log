@@ -390,3 +390,1722 @@ sqlite3.OperationalError: no such table: author
 6  AUTHOR_007            Chinua Achebe        1930    Nigerian
 2025-09-26 21:12:10.453 | INFO     | __main__:<module>:61 - Database setup completed successfully.
 2025-09-26 21:12:10.453 | INFO     | __main__:<module>:76 - Database connection closed
+2025-09-26 21:50:29.246 | INFO     | utils_logger:<module>:41 - Logging to file: logs\project_log.log
+2025-09-26 21:50:29.246 | INFO     | __main__:<module>:40 - Connected to SQLite database at data/books.db
+2025-09-26 21:50:29.265 | INFO     | __main__:execute_sql_file_show:17 -    total_books
+0           12
+2025-09-26 21:50:29.266 | INFO     | __main__:execute_sql_file_show:18 - Executed SQL file: sql_queries/query_aggregation.sql
+2025-09-26 21:50:29.266 | INFO     | __main__:<module>:43 - Executed query_aggregation script
+2025-09-26 21:50:29.279 | INFO     | __main__:execute_sql_file_show:17 -     book_id                                    title    genre  publication_year   author_id
+0  BOOK_001    Harry Potter and the Sorcerer's Stone  Fantasy              1997  AUTHOR_001
+1  BOOK_002  Harry Potter and the Chamber of Secrets  Fantasy              1998  AUTHOR_001
+2025-09-26 21:50:29.281 | INFO     | __main__:execute_sql_file_show:18 - Executed SQL file: sql_queries/query_filter.sql
+2025-09-26 21:50:29.282 | INFO     | __main__:<module>:46 - Executed query_filter script
+2025-09-26 21:50:29.290 | INFO     | __main__:execute_sql_file_show:17 -     author_id  book_count
+0  AUTHOR_001           2
+1  AUTHOR_002           1
+2  AUTHOR_003           1
+3  AUTHOR_004           2
+4  AUTHOR_005           1
+5  AUTHOR_006           3
+6  AUTHOR_007           2
+2025-09-26 21:50:29.292 | INFO     | __main__:execute_sql_file_show:18 - Executed SQL file: sql_queries/query_group_by.sql
+2025-09-26 21:50:29.293 | INFO     | __main__:<module>:49 - Executed query_group_by script
+2025-09-26 21:50:29.302 | ERROR    | __main__:execute_sql_file_show:23 - Failed to read SQL file 'sql_queries/query_join.sql': Execution failed on sql 'SELECT
+    books.book_id,
+    books.title,
+    books.published_year,
+    author.author_id,
+    author.name AS author_name
+FROM
+    books
+INNER JOIN
+    author ON books.author_id = author.author_id;': no such table: author
+Traceback (most recent call last):
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2664, in execute
+    cur.execute(sql, *args)
+    │   │       │     └ []
+    │   │       └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    author.author_id,\n    author.name AS author_na...
+    │   └ <method 'execute' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x000001EED99B4EC0>
+
+sqlite3.OperationalError: no such table: author
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\db03_queries.py", line 51, in <module>
+    execute_sql_file_show(conn, "sql_queries/query_join.sql")
+    │                     └ <sqlite3.Connection object at 0x000001EED9990220>
+    └ <function execute_sql_file_show at 0x000001EEB68FA3E0>
+
+> File "C:\GitHub_Repo\datafun-05-sql-project\db03_queries.py", line 16, in execute_sql_file_show
+    df = pd.read_sql_query(sql_script, conn)
+         │  │              │           └ <sqlite3.Connection object at 0x000001EED9990220>
+         │  │              └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    author.author_id,\n    author.name AS author_na...
+         │  └ <function read_sql_query at 0x000001EED96ED4E0>
+         └ <module 'pandas' from 'C:\\GitHub_Repo\\datafun-05-sql-project\\.venv\\Lib\\site-packages\\pandas\\__init__.py'>
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 528, in read_sql_query
+    return pandas_sql.read_query(
+           │          └ <function SQLiteDatabase.read_query at 0x000001EED9714860>
+           └ <pandas.io.sql.SQLiteDatabase object at 0x000001EED97BE540>
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2728, in read_query
+    cursor = self.execute(sql, params)
+             │    │       │    └ None
+             │    │       └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    author.author_id,\n    author.name AS author_na...
+             │    └ <function SQLiteDatabase.execute at 0x000001EED9714720>
+             └ <pandas.io.sql.SQLiteDatabase object at 0x000001EED97BE540>
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2676, in execute
+    raise ex from exc
+          └ DatabaseError("Execution failed on sql 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    author.a...
+
+pandas.errors.DatabaseError: Execution failed on sql 'SELECT
+    books.book_id,
+    books.title,
+    books.published_year,
+    author.author_id,
+    author.name AS author_name
+FROM
+    books
+INNER JOIN
+    author ON books.author_id = author.author_id;': no such table: author
+2025-09-26 21:50:29.305 | INFO     | __main__:<module>:64 - Rolled back open transaction(s)
+2025-09-26 21:50:29.305 | ERROR    | __main__:<module>:67 - Database setup failed. Exiting with error.
+Traceback (most recent call last):
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2664, in execute
+    cur.execute(sql, *args)
+    │   │       │     └ []
+    │   │       └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    author.author_id,\n    author.name AS author_na...
+    │   └ <method 'execute' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x000001EED99B4EC0>
+
+sqlite3.OperationalError: no such table: author
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+> File "C:\GitHub_Repo\datafun-05-sql-project\db03_queries.py", line 51, in <module>
+    execute_sql_file_show(conn, "sql_queries/query_join.sql")
+    │                     └ <sqlite3.Connection object at 0x000001EED9990220>
+    └ <function execute_sql_file_show at 0x000001EEB68FA3E0>
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\db03_queries.py", line 16, in execute_sql_file_show
+    df = pd.read_sql_query(sql_script, conn)
+         │  │              │           └ <sqlite3.Connection object at 0x000001EED9990220>
+         │  │              └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    author.author_id,\n    author.name AS author_na...
+         │  └ <function read_sql_query at 0x000001EED96ED4E0>
+         └ <module 'pandas' from 'C:\\GitHub_Repo\\datafun-05-sql-project\\.venv\\Lib\\site-packages\\pandas\\__init__.py'>
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 528, in read_sql_query
+    return pandas_sql.read_query(
+           │          └ <function SQLiteDatabase.read_query at 0x000001EED9714860>
+           └ <pandas.io.sql.SQLiteDatabase object at 0x000001EED97BE540>
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2728, in read_query
+    cursor = self.execute(sql, params)
+             │    │       │    └ None
+             │    │       └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    author.author_id,\n    author.name AS author_na...
+             │    └ <function SQLiteDatabase.execute at 0x000001EED9714720>
+             └ <pandas.io.sql.SQLiteDatabase object at 0x000001EED97BE540>
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2676, in execute
+    raise ex from exc
+          └ DatabaseError("Execution failed on sql 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    author.a...
+
+pandas.errors.DatabaseError: Execution failed on sql 'SELECT
+    books.book_id,
+    books.title,
+    books.published_year,
+    author.author_id,
+    author.name AS author_name
+FROM
+    books
+INNER JOIN
+    author ON books.author_id = author.author_id;': no such table: author
+2025-09-26 21:50:29.307 | INFO     | __main__:<module>:73 - Database connection closed
+2025-09-26 21:53:06.731 | INFO     | utils_logger:<module>:41 - Logging to file: logs\project_log.log
+2025-09-26 21:53:06.731 | INFO     | __main__:<module>:73 - Connected to SQLite database at data/books.db
+2025-09-26 21:53:06.731 | INFO     | __main__:execute_sql_file_show:19 -    total_books
+0           12
+2025-09-26 21:53:06.746 | INFO     | __main__:execute_sql_file_show:20 - Executed SQL file (single-query): sql_queries/query_aggregation.sql
+2025-09-26 21:53:06.746 | INFO     | __main__:<module>:76 - Executed query_aggregation script
+2025-09-26 21:53:06.746 | INFO     | __main__:execute_sql_file_show:19 -     book_id                                    title  ... publication_year   author_id
+0  BOOK_001    Harry Potter and the Sorcerer's Stone  ...             1997  AUTHOR_001
+1  BOOK_002  Harry Potter and the Chamber of Secrets  ...             1998  AUTHOR_001
+
+[2 rows x 5 columns]
+2025-09-26 21:53:06.756 | INFO     | __main__:execute_sql_file_show:20 - Executed SQL file (single-query): sql_queries/query_filter.sql
+2025-09-26 21:53:06.756 | INFO     | __main__:<module>:79 - Executed query_filter script
+2025-09-26 21:53:06.757 | INFO     | __main__:execute_sql_file_show:19 -     author_id  book_count
+0  AUTHOR_001           2
+1  AUTHOR_002           1
+2  AUTHOR_003           1
+3  AUTHOR_004           2
+4  AUTHOR_005           1
+5  AUTHOR_006           3
+6  AUTHOR_007           2
+2025-09-26 21:53:06.760 | INFO     | __main__:execute_sql_file_show:20 - Executed SQL file (single-query): sql_queries/query_group_by.sql
+2025-09-26 21:53:06.760 | INFO     | __main__:<module>:82 - Executed query_group_by script
+2025-09-26 21:53:06.761 | ERROR    | __main__:execute_sql_file_show:41 - Failed to run SELECT statement from 'sql_queries/query_join.sql': Execution failed on sql 'SELECT
+    books.book_id,
+    books.title,
+    books.published_year,
+    author.author_id,
+    author.name AS author_name
+FROM
+    books
+INNER JOIN
+    author ON books.author_id = author.author_id': no such table: author
+Traceback (most recent call last):
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2664, in execute
+    cur.execute(sql, *args)
+    │   │       │     └ []
+    │   │       └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    author.author_id,\n    author.name AS author_na...
+    │   └ <method 'execute' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x0000025503AC8E40>
+
+sqlite3.OperationalError: no such table: author
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\db03_queries.py", line 84, in <module>
+    execute_sql_file_show(conn, "sql_queries/query_join.sql")
+    │                     └ <sqlite3.Connection object at 0x0000025503AA0310>
+    └ <function execute_sql_file_show at 0x00000255609DA3E0>
+
+> File "C:\GitHub_Repo\datafun-05-sql-project\db03_queries.py", line 38, in execute_sql_file_show
+    df = pd.read_sql_query(stmt, conn)
+         │  │              │     └ <sqlite3.Connection object at 0x0000025503AA0310>
+         │  │              └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    author.author_id,\n    author.name AS author_na...
+         │  └ <function read_sql_query at 0x00000255037AD4E0>
+         └ <module 'pandas' from 'C:\\GitHub_Repo\\datafun-05-sql-project\\.venv\\Lib\\site-packages\\pandas\\__init__.py'>
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 528, in read_sql_query
+    return pandas_sql.read_query(
+           │          └ <function SQLiteDatabase.read_query at 0x00000255037D4860>
+           └ <pandas.io.sql.SQLiteDatabase object at 0x0000025503817770>
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2728, in read_query
+    cursor = self.execute(sql, params)
+             │    │       │    └ None
+             │    │       └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    author.author_id,\n    author.name AS author_na...
+             │    └ <function SQLiteDatabase.execute at 0x00000255037D4720>
+             └ <pandas.io.sql.SQLiteDatabase object at 0x0000025503817770>
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2676, in execute
+    raise ex from exc
+          └ DatabaseError("Execution failed on sql 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    author.a...
+
+pandas.errors.DatabaseError: Execution failed on sql 'SELECT
+    books.book_id,
+    books.title,
+    books.published_year,
+    author.author_id,
+    author.name AS author_name
+FROM
+    books
+INNER JOIN
+    author ON books.author_id = author.author_id': no such table: author
+2025-09-26 21:53:06.763 | ERROR    | __main__:execute_sql_file_show:56 - Failed to read SQL file 'sql_queries/query_join.sql': Execution failed on sql 'SELECT
+    books.book_id,
+    books.title,
+    books.published_year,
+    author.author_id,
+    author.name AS author_name
+FROM
+    books
+INNER JOIN
+    author ON books.author_id = author.author_id': no such table: author
+Traceback (most recent call last):
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2664, in execute
+    cur.execute(sql, *args)
+    │   │       │     └ []
+    │   │       └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    author.author_id,\n    author.name AS author_na...
+    │   └ <method 'execute' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x0000025503AC8E40>
+
+sqlite3.OperationalError: no such table: author
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\db03_queries.py", line 84, in <module>
+    execute_sql_file_show(conn, "sql_queries/query_join.sql")
+    │                     └ <sqlite3.Connection object at 0x0000025503AA0310>
+    └ <function execute_sql_file_show at 0x00000255609DA3E0>
+
+> File "C:\GitHub_Repo\datafun-05-sql-project\db03_queries.py", line 38, in execute_sql_file_show
+    df = pd.read_sql_query(stmt, conn)
+         │  │              │     └ <sqlite3.Connection object at 0x0000025503AA0310>
+         │  │              └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    author.author_id,\n    author.name AS author_na...
+         │  └ <function read_sql_query at 0x00000255037AD4E0>
+         └ <module 'pandas' from 'C:\\GitHub_Repo\\datafun-05-sql-project\\.venv\\Lib\\site-packages\\pandas\\__init__.py'>
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 528, in read_sql_query
+    return pandas_sql.read_query(
+           │          └ <function SQLiteDatabase.read_query at 0x00000255037D4860>
+           └ <pandas.io.sql.SQLiteDatabase object at 0x0000025503817770>
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2728, in read_query
+    cursor = self.execute(sql, params)
+             │    │       │    └ None
+             │    │       └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    author.author_id,\n    author.name AS author_na...
+             │    └ <function SQLiteDatabase.execute at 0x00000255037D4720>
+             └ <pandas.io.sql.SQLiteDatabase object at 0x0000025503817770>
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2676, in execute
+    raise ex from exc
+          └ DatabaseError("Execution failed on sql 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    author.a...
+
+pandas.errors.DatabaseError: Execution failed on sql 'SELECT
+    books.book_id,
+    books.title,
+    books.published_year,
+    author.author_id,
+    author.name AS author_name
+FROM
+    books
+INNER JOIN
+    author ON books.author_id = author.author_id': no such table: author
+2025-09-26 21:53:06.765 | INFO     | __main__:<module>:97 - Rolled back open transaction(s)
+2025-09-26 21:53:06.765 | ERROR    | __main__:<module>:100 - Database setup failed. Exiting with error.
+Traceback (most recent call last):
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2664, in execute
+    cur.execute(sql, *args)
+    │   │       │     └ []
+    │   │       └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    author.author_id,\n    author.name AS author_na...
+    │   └ <method 'execute' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x0000025503AC8E40>
+
+sqlite3.OperationalError: no such table: author
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+> File "C:\GitHub_Repo\datafun-05-sql-project\db03_queries.py", line 84, in <module>
+    execute_sql_file_show(conn, "sql_queries/query_join.sql")
+    │                     └ <sqlite3.Connection object at 0x0000025503AA0310>
+    └ <function execute_sql_file_show at 0x00000255609DA3E0>
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\db03_queries.py", line 38, in execute_sql_file_show
+    df = pd.read_sql_query(stmt, conn)
+         │  │              │     └ <sqlite3.Connection object at 0x0000025503AA0310>
+         │  │              └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    author.author_id,\n    author.name AS author_na...
+         │  └ <function read_sql_query at 0x00000255037AD4E0>
+         └ <module 'pandas' from 'C:\\GitHub_Repo\\datafun-05-sql-project\\.venv\\Lib\\site-packages\\pandas\\__init__.py'>
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 528, in read_sql_query
+    return pandas_sql.read_query(
+           │          └ <function SQLiteDatabase.read_query at 0x00000255037D4860>
+           └ <pandas.io.sql.SQLiteDatabase object at 0x0000025503817770>
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2728, in read_query
+    cursor = self.execute(sql, params)
+             │    │       │    └ None
+             │    │       └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    author.author_id,\n    author.name AS author_na...
+             │    └ <function SQLiteDatabase.execute at 0x00000255037D4720>
+             └ <pandas.io.sql.SQLiteDatabase object at 0x0000025503817770>
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2676, in execute
+    raise ex from exc
+          └ DatabaseError("Execution failed on sql 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    author.a...
+
+pandas.errors.DatabaseError: Execution failed on sql 'SELECT
+    books.book_id,
+    books.title,
+    books.published_year,
+    author.author_id,
+    author.name AS author_name
+FROM
+    books
+INNER JOIN
+    author ON books.author_id = author.author_id': no such table: author
+2025-09-26 21:53:06.765 | INFO     | __main__:<module>:106 - Database connection closed
+2025-09-26 21:53:19.637 | INFO     | utils_logger:<module>:41 - Logging to file: logs\project_log.log
+2025-09-26 21:53:19.637 | INFO     | __main__:<module>:73 - Connected to SQLite database at data/books.db
+2025-09-26 21:53:19.637 | INFO     | __main__:execute_sql_file_show:19 -    total_books
+0           12
+2025-09-26 21:53:19.637 | INFO     | __main__:execute_sql_file_show:20 - Executed SQL file (single-query): sql_queries/query_aggregation.sql
+2025-09-26 21:53:19.637 | INFO     | __main__:<module>:76 - Executed query_aggregation script
+2025-09-26 21:53:19.637 | INFO     | __main__:execute_sql_file_show:19 -     book_id                                    title  ... publication_year   author_id
+0  BOOK_001    Harry Potter and the Sorcerer's Stone  ...             1997  AUTHOR_001
+1  BOOK_002  Harry Potter and the Chamber of Secrets  ...             1998  AUTHOR_001
+
+[2 rows x 5 columns]
+2025-09-26 21:53:19.652 | INFO     | __main__:execute_sql_file_show:20 - Executed SQL file (single-query): sql_queries/query_filter.sql
+2025-09-26 21:53:19.652 | INFO     | __main__:<module>:79 - Executed query_filter script
+2025-09-26 21:53:19.653 | INFO     | __main__:execute_sql_file_show:19 -     author_id  book_count
+0  AUTHOR_001           2
+1  AUTHOR_002           1
+2  AUTHOR_003           1
+3  AUTHOR_004           2
+4  AUTHOR_005           1
+5  AUTHOR_006           3
+6  AUTHOR_007           2
+2025-09-26 21:53:19.656 | INFO     | __main__:execute_sql_file_show:20 - Executed SQL file (single-query): sql_queries/query_group_by.sql
+2025-09-26 21:53:19.656 | INFO     | __main__:<module>:82 - Executed query_group_by script
+2025-09-26 21:53:19.657 | ERROR    | __main__:execute_sql_file_show:41 - Failed to run SELECT statement from 'sql_queries/query_join.sql': Execution failed on sql 'SELECT
+    books.book_id,
+    books.title,
+    books.published_year,
+    author.author_id,
+    author.name AS author_name
+FROM
+    books
+INNER JOIN
+    author ON books.author_id = author.author_id': no such table: author
+Traceback (most recent call last):
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2664, in execute
+    cur.execute(sql, *args)
+    │   │       │     └ []
+    │   │       └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    author.author_id,\n    author.name AS author_na...
+    │   └ <method 'execute' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x0000016389954E40>
+
+sqlite3.OperationalError: no such table: author
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\db03_queries.py", line 84, in <module>
+    execute_sql_file_show(conn, "sql_queries/query_join.sql")
+    │                     └ <sqlite3.Connection object at 0x0000016389930310>
+    └ <function execute_sql_file_show at 0x00000163E692A3E0>
+
+> File "C:\GitHub_Repo\datafun-05-sql-project\db03_queries.py", line 38, in execute_sql_file_show
+    df = pd.read_sql_query(stmt, conn)
+         │  │              │     └ <sqlite3.Connection object at 0x0000016389930310>
+         │  │              └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    author.author_id,\n    author.name AS author_na...
+         │  └ <function read_sql_query at 0x000001638968D4E0>
+         └ <module 'pandas' from 'C:\\GitHub_Repo\\datafun-05-sql-project\\.venv\\Lib\\site-packages\\pandas\\__init__.py'>
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 528, in read_sql_query
+    return pandas_sql.read_query(
+           │          └ <function SQLiteDatabase.read_query at 0x00000163896B0860>
+           └ <pandas.io.sql.SQLiteDatabase object at 0x000001638985FD40>
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2728, in read_query
+    cursor = self.execute(sql, params)
+             │    │       │    └ None
+             │    │       └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    author.author_id,\n    author.name AS author_na...
+             │    └ <function SQLiteDatabase.execute at 0x00000163896B0720>
+             └ <pandas.io.sql.SQLiteDatabase object at 0x000001638985FD40>
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2676, in execute
+    raise ex from exc
+          └ DatabaseError("Execution failed on sql 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    author.a...
+
+pandas.errors.DatabaseError: Execution failed on sql 'SELECT
+    books.book_id,
+    books.title,
+    books.published_year,
+    author.author_id,
+    author.name AS author_name
+FROM
+    books
+INNER JOIN
+    author ON books.author_id = author.author_id': no such table: author
+2025-09-26 21:53:19.659 | ERROR    | __main__:execute_sql_file_show:56 - Failed to read SQL file 'sql_queries/query_join.sql': Execution failed on sql 'SELECT
+    books.book_id,
+    books.title,
+    books.published_year,
+    author.author_id,
+    author.name AS author_name
+FROM
+    books
+INNER JOIN
+    author ON books.author_id = author.author_id': no such table: author
+Traceback (most recent call last):
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2664, in execute
+    cur.execute(sql, *args)
+    │   │       │     └ []
+    │   │       └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    author.author_id,\n    author.name AS author_na...
+    │   └ <method 'execute' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x0000016389954E40>
+
+sqlite3.OperationalError: no such table: author
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\db03_queries.py", line 84, in <module>
+    execute_sql_file_show(conn, "sql_queries/query_join.sql")
+    │                     └ <sqlite3.Connection object at 0x0000016389930310>
+    └ <function execute_sql_file_show at 0x00000163E692A3E0>
+
+> File "C:\GitHub_Repo\datafun-05-sql-project\db03_queries.py", line 38, in execute_sql_file_show
+    df = pd.read_sql_query(stmt, conn)
+         │  │              │     └ <sqlite3.Connection object at 0x0000016389930310>
+         │  │              └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    author.author_id,\n    author.name AS author_na...
+         │  └ <function read_sql_query at 0x000001638968D4E0>
+         └ <module 'pandas' from 'C:\\GitHub_Repo\\datafun-05-sql-project\\.venv\\Lib\\site-packages\\pandas\\__init__.py'>
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 528, in read_sql_query
+    return pandas_sql.read_query(
+           │          └ <function SQLiteDatabase.read_query at 0x00000163896B0860>
+           └ <pandas.io.sql.SQLiteDatabase object at 0x000001638985FD40>
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2728, in read_query
+    cursor = self.execute(sql, params)
+             │    │       │    └ None
+             │    │       └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    author.author_id,\n    author.name AS author_na...
+             │    └ <function SQLiteDatabase.execute at 0x00000163896B0720>
+             └ <pandas.io.sql.SQLiteDatabase object at 0x000001638985FD40>
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2676, in execute
+    raise ex from exc
+          └ DatabaseError("Execution failed on sql 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    author.a...
+
+pandas.errors.DatabaseError: Execution failed on sql 'SELECT
+    books.book_id,
+    books.title,
+    books.published_year,
+    author.author_id,
+    author.name AS author_name
+FROM
+    books
+INNER JOIN
+    author ON books.author_id = author.author_id': no such table: author
+2025-09-26 21:53:19.659 | INFO     | __main__:<module>:97 - Rolled back open transaction(s)
+2025-09-26 21:53:19.659 | ERROR    | __main__:<module>:100 - Database setup failed. Exiting with error.
+Traceback (most recent call last):
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2664, in execute
+    cur.execute(sql, *args)
+    │   │       │     └ []
+    │   │       └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    author.author_id,\n    author.name AS author_na...
+    │   └ <method 'execute' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x0000016389954E40>
+
+sqlite3.OperationalError: no such table: author
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+> File "C:\GitHub_Repo\datafun-05-sql-project\db03_queries.py", line 84, in <module>
+    execute_sql_file_show(conn, "sql_queries/query_join.sql")
+    │                     └ <sqlite3.Connection object at 0x0000016389930310>
+    └ <function execute_sql_file_show at 0x00000163E692A3E0>
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\db03_queries.py", line 38, in execute_sql_file_show
+    df = pd.read_sql_query(stmt, conn)
+         │  │              │     └ <sqlite3.Connection object at 0x0000016389930310>
+         │  │              └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    author.author_id,\n    author.name AS author_na...
+         │  └ <function read_sql_query at 0x000001638968D4E0>
+         └ <module 'pandas' from 'C:\\GitHub_Repo\\datafun-05-sql-project\\.venv\\Lib\\site-packages\\pandas\\__init__.py'>
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 528, in read_sql_query
+    return pandas_sql.read_query(
+           │          └ <function SQLiteDatabase.read_query at 0x00000163896B0860>
+           └ <pandas.io.sql.SQLiteDatabase object at 0x000001638985FD40>
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2728, in read_query
+    cursor = self.execute(sql, params)
+             │    │       │    └ None
+             │    │       └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    author.author_id,\n    author.name AS author_na...
+             │    └ <function SQLiteDatabase.execute at 0x00000163896B0720>
+             └ <pandas.io.sql.SQLiteDatabase object at 0x000001638985FD40>
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2676, in execute
+    raise ex from exc
+          └ DatabaseError("Execution failed on sql 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    author.a...
+
+pandas.errors.DatabaseError: Execution failed on sql 'SELECT
+    books.book_id,
+    books.title,
+    books.published_year,
+    author.author_id,
+    author.name AS author_name
+FROM
+    books
+INNER JOIN
+    author ON books.author_id = author.author_id': no such table: author
+2025-09-26 21:53:19.659 | INFO     | __main__:<module>:106 - Database connection closed
+2025-09-26 21:56:33.046 | INFO     | utils_logger:<module>:41 - Logging to file: logs\project_log.log
+2025-09-26 21:56:33.046 | INFO     | __main__:<module>:40 - Connected to SQLite database at data/books.db
+2025-09-26 21:56:33.046 | INFO     | __main__:execute_sql_file_show:17 -    total_books
+0           12
+2025-09-26 21:56:33.046 | INFO     | __main__:execute_sql_file_show:18 - Executed SQL file: sql_queries/query_aggregation.sql
+2025-09-26 21:56:33.046 | INFO     | __main__:<module>:43 - Executed query_aggregation script
+2025-09-26 21:56:33.053 | INFO     | __main__:execute_sql_file_show:17 -     book_id                                    title    genre  publication_year   author_id
+0  BOOK_001    Harry Potter and the Sorcerer's Stone  Fantasy              1997  AUTHOR_001
+1  BOOK_002  Harry Potter and the Chamber of Secrets  Fantasy              1998  AUTHOR_001
+2025-09-26 21:56:33.056 | INFO     | __main__:execute_sql_file_show:18 - Executed SQL file: sql_queries/query_filter.sql
+2025-09-26 21:56:33.056 | INFO     | __main__:<module>:46 - Executed query_filter script
+2025-09-26 21:56:33.057 | INFO     | __main__:execute_sql_file_show:17 -     author_id  book_count
+0  AUTHOR_001           2
+1  AUTHOR_002           1
+2  AUTHOR_003           1
+3  AUTHOR_004           2
+4  AUTHOR_005           1
+5  AUTHOR_006           3
+6  AUTHOR_007           2
+2025-09-26 21:56:33.059 | INFO     | __main__:execute_sql_file_show:18 - Executed SQL file: sql_queries/query_group_by.sql
+2025-09-26 21:56:33.060 | INFO     | __main__:<module>:49 - Executed query_group_by script
+2025-09-26 21:56:33.063 | ERROR    | __main__:execute_sql_file_show:23 - Failed to read SQL file 'sql_queries/query_join.sql': Execution failed on sql 'SELECT
+    books.book_id,
+    books.title,
+    books.published_year,
+    authors.author_id,
+    authors.name AS author_name
+FROM
+    books
+INNER JOIN
+    author ON books.author_id = authors.author_id;': no such table: author
+Traceback (most recent call last):
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2664, in execute
+    cur.execute(sql, *args)
+    │   │       │     └ []
+    │   │       └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    authors.author_id,\n    authors.name AS author_...
+    │   └ <method 'execute' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x000001CD28D64EC0>
+
+sqlite3.OperationalError: no such table: author
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\db03_queries.py", line 51, in <module>
+    execute_sql_file_show(conn, "sql_queries/query_join.sql")
+    │                     └ <sqlite3.Connection object at 0x000001CD28D40220>
+    └ <function execute_sql_file_show at 0x000001CD05C7A3E0>
+
+> File "C:\GitHub_Repo\datafun-05-sql-project\db03_queries.py", line 16, in execute_sql_file_show
+    df = pd.read_sql_query(sql_script, conn)
+         │  │              │           └ <sqlite3.Connection object at 0x000001CD28D40220>
+         │  │              └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    authors.author_id,\n    authors.name AS author_...
+         │  └ <function read_sql_query at 0x000001CD28A4D4E0>
+         └ <module 'pandas' from 'C:\\GitHub_Repo\\datafun-05-sql-project\\.venv\\Lib\\site-packages\\pandas\\__init__.py'>
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 528, in read_sql_query
+    return pandas_sql.read_query(
+           │          └ <function SQLiteDatabase.read_query at 0x000001CD28A74860>
+           └ <pandas.io.sql.SQLiteDatabase object at 0x000001CD28C80E00>
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2728, in read_query
+    cursor = self.execute(sql, params)
+             │    │       │    └ None
+             │    │       └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    authors.author_id,\n    authors.name AS author_...
+             │    └ <function SQLiteDatabase.execute at 0x000001CD28A74720>
+             └ <pandas.io.sql.SQLiteDatabase object at 0x000001CD28C80E00>
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2676, in execute
+    raise ex from exc
+          └ DatabaseError("Execution failed on sql 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    authors....
+
+pandas.errors.DatabaseError: Execution failed on sql 'SELECT
+    books.book_id,
+    books.title,
+    books.published_year,
+    authors.author_id,
+    authors.name AS author_name
+FROM
+    books
+INNER JOIN
+    author ON books.author_id = authors.author_id;': no such table: author
+2025-09-26 21:56:33.073 | INFO     | __main__:<module>:64 - Rolled back open transaction(s)
+2025-09-26 21:56:33.073 | ERROR    | __main__:<module>:67 - Database setup failed. Exiting with error.
+Traceback (most recent call last):
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2664, in execute
+    cur.execute(sql, *args)
+    │   │       │     └ []
+    │   │       └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    authors.author_id,\n    authors.name AS author_...
+    │   └ <method 'execute' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x000001CD28D64EC0>
+
+sqlite3.OperationalError: no such table: author
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+> File "C:\GitHub_Repo\datafun-05-sql-project\db03_queries.py", line 51, in <module>
+    execute_sql_file_show(conn, "sql_queries/query_join.sql")
+    │                     └ <sqlite3.Connection object at 0x000001CD28D40220>
+    └ <function execute_sql_file_show at 0x000001CD05C7A3E0>
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\db03_queries.py", line 16, in execute_sql_file_show
+    df = pd.read_sql_query(sql_script, conn)
+         │  │              │           └ <sqlite3.Connection object at 0x000001CD28D40220>
+         │  │              └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    authors.author_id,\n    authors.name AS author_...
+         │  └ <function read_sql_query at 0x000001CD28A4D4E0>
+         └ <module 'pandas' from 'C:\\GitHub_Repo\\datafun-05-sql-project\\.venv\\Lib\\site-packages\\pandas\\__init__.py'>
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 528, in read_sql_query
+    return pandas_sql.read_query(
+           │          └ <function SQLiteDatabase.read_query at 0x000001CD28A74860>
+           └ <pandas.io.sql.SQLiteDatabase object at 0x000001CD28C80E00>
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2728, in read_query
+    cursor = self.execute(sql, params)
+             │    │       │    └ None
+             │    │       └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    authors.author_id,\n    authors.name AS author_...
+             │    └ <function SQLiteDatabase.execute at 0x000001CD28A74720>
+             └ <pandas.io.sql.SQLiteDatabase object at 0x000001CD28C80E00>
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2676, in execute
+    raise ex from exc
+          └ DatabaseError("Execution failed on sql 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    authors....
+
+pandas.errors.DatabaseError: Execution failed on sql 'SELECT
+    books.book_id,
+    books.title,
+    books.published_year,
+    authors.author_id,
+    authors.name AS author_name
+FROM
+    books
+INNER JOIN
+    author ON books.author_id = authors.author_id;': no such table: author
+2025-09-26 21:56:33.075 | INFO     | __main__:<module>:73 - Database connection closed
+2025-09-26 22:02:55.908 | INFO     | utils_logger:<module>:41 - Logging to file: logs\project_log.log
+2025-09-26 22:02:55.908 | INFO     | __main__:<module>:40 - Connected to SQLite database at data/books.db
+2025-09-26 22:02:55.908 | INFO     | __main__:execute_sql_file_show:17 -    total_books
+0           12
+2025-09-26 22:02:55.918 | INFO     | __main__:execute_sql_file_show:18 - Executed SQL file: sql_queries/query_aggregation.sql
+2025-09-26 22:02:55.918 | INFO     | __main__:<module>:43 - Executed query_aggregation script
+2025-09-26 22:02:55.920 | INFO     | __main__:execute_sql_file_show:17 -     book_id                                    title    genre  publication_year   author_id
+0  BOOK_001    Harry Potter and the Sorcerer's Stone  Fantasy              1997  AUTHOR_001
+1  BOOK_002  Harry Potter and the Chamber of Secrets  Fantasy              1998  AUTHOR_001
+2025-09-26 22:02:55.923 | INFO     | __main__:execute_sql_file_show:18 - Executed SQL file: sql_queries/query_filter.sql
+2025-09-26 22:02:55.923 | INFO     | __main__:<module>:46 - Executed query_filter script
+2025-09-26 22:02:55.924 | INFO     | __main__:execute_sql_file_show:17 -     author_id  book_count
+0  AUTHOR_001           2
+1  AUTHOR_002           1
+2  AUTHOR_003           1
+3  AUTHOR_004           2
+4  AUTHOR_005           1
+5  AUTHOR_006           3
+6  AUTHOR_007           2
+2025-09-26 22:02:55.926 | INFO     | __main__:execute_sql_file_show:18 - Executed SQL file: sql_queries/query_group_by.sql
+2025-09-26 22:02:55.926 | INFO     | __main__:<module>:49 - Executed query_group_by script
+2025-09-26 22:02:55.926 | INFO     | __main__:<module>:58 - Database setup completed successfully.
+2025-09-26 22:02:55.926 | INFO     | __main__:<module>:73 - Database connection closed
+2025-09-26 22:04:09.568 | INFO     | utils_logger:<module>:41 - Logging to file: logs\project_log.log
+2025-09-26 22:04:09.568 | INFO     | __main__:<module>:41 - Connected to SQLite database at data/books.db
+2025-09-26 22:04:09.568 | INFO     | __main__:execute_sql_file_show:17 - Executed SQL file: sql_queries/query_aggregation.sql 
+
+2025-09-26 22:04:09.568 | INFO     | __main__:execute_sql_file_show:18 -    total_books
+0           12
+2025-09-26 22:04:09.568 | INFO     | __main__:<module>:44 - Executed query_aggregation script
+2025-09-26 22:04:09.568 | INFO     | __main__:execute_sql_file_show:17 - Executed SQL file: sql_queries/query_filter.sql 
+
+2025-09-26 22:04:09.568 | INFO     | __main__:execute_sql_file_show:18 -     book_id                                    title    genre  publication_year   author_id
+0  BOOK_001    Harry Potter and the Sorcerer's Stone  Fantasy              1997  AUTHOR_001
+1  BOOK_002  Harry Potter and the Chamber of Secrets  Fantasy              1998  AUTHOR_001
+2025-09-26 22:04:09.568 | INFO     | __main__:<module>:47 - Executed query_filter script
+2025-09-26 22:04:09.568 | INFO     | __main__:execute_sql_file_show:17 - Executed SQL file: sql_queries/query_group_by.sql 
+
+2025-09-26 22:04:09.568 | INFO     | __main__:execute_sql_file_show:18 -     author_id  book_count
+0  AUTHOR_001           2
+1  AUTHOR_002           1
+2  AUTHOR_003           1
+3  AUTHOR_004           2
+4  AUTHOR_005           1
+5  AUTHOR_006           3
+6  AUTHOR_007           2
+2025-09-26 22:04:09.580 | INFO     | __main__:<module>:50 - Executed query_group_by script
+2025-09-26 22:04:09.591 | INFO     | __main__:execute_sql_file_show:17 - Executed SQL file: sql_queries/query_sorting.sql 
+
+2025-09-26 22:04:09.591 | INFO     | __main__:execute_sql_file_show:18 -      book_id                                    title               genre  publication_year   author_id
+0   BOOK_007                    Sense and Sensibility             Romance              1811  AUTHOR_004
+1   BOOK_006                      Pride and Prejudice             Romance              1813  AUTHOR_004
+2   BOOK_008                         The Great Gatsby             Tragedy              1925  AUTHOR_005
+3   BOOK_004                              Animal Farm    Political Satire              1945  AUTHOR_002
+4   BOOK_011                        Things Fall Apart  Historical Fiction              1958  AUTHOR_007
+5   BOOK_005                    To Kill a Mockingbird             Fiction              1960  AUTHOR_003
+6   BOOK_012                        No Longer at Ease             Fiction              1960  AUTHOR_007
+7   BOOK_009            One Hundred Years of Solitude       Magic Realism              1967  AUTHOR_006
+8   BOOK_013            Chronicle of a Death Foretold             Novella              1981  AUTHOR_006
+9   BOOK_010              Love in the Time of Cholera             Romance              1985  AUTHOR_006
+10  BOOK_001    Harry Potter and the Sorcerer's Stone             Fantasy              1997  AUTHOR_001
+11  BOOK_002  Harry Potter and the Chamber of Secrets             Fantasy              1998  AUTHOR_001
+2025-09-26 22:04:09.595 | INFO     | __main__:<module>:56 - Executed query_sorting script
+2025-09-26 22:04:09.596 | INFO     | __main__:<module>:59 - Database setup completed successfully.
+2025-09-26 22:04:09.596 | INFO     | __main__:<module>:74 - Database connection closed
+2025-09-26 22:04:51.964 | INFO     | utils_logger:<module>:41 - Logging to file: logs\project_log.log
+2025-09-26 22:04:51.979 | INFO     | __main__:<module>:41 - Connected to SQLite database at data/books.db
+2025-09-26 22:04:51.979 | INFO     | __main__:execute_sql_file_show:17 - Executed SQL file: sql_queries/query_aggregation.sql 
+
+2025-09-26 22:04:51.979 | INFO     | __main__:execute_sql_file_show:18 -    total_books
+0           12
+2025-09-26 22:04:51.979 | INFO     | __main__:<module>:44 - Executed query_aggregation script
+2025-09-26 22:04:51.979 | INFO     | __main__:execute_sql_file_show:17 - Executed SQL file: sql_queries/query_filter.sql 
+
+2025-09-26 22:04:51.986 | INFO     | __main__:execute_sql_file_show:18 -     book_id                                    title    genre  publication_year   author_id
+0  BOOK_001    Harry Potter and the Sorcerer's Stone  Fantasy              1997  AUTHOR_001
+1  BOOK_002  Harry Potter and the Chamber of Secrets  Fantasy              1998  AUTHOR_001
+2025-09-26 22:04:51.988 | INFO     | __main__:<module>:47 - Executed query_filter script
+2025-09-26 22:04:51.989 | INFO     | __main__:execute_sql_file_show:17 - Executed SQL file: sql_queries/query_group_by.sql 
+
+2025-09-26 22:04:51.990 | INFO     | __main__:execute_sql_file_show:18 -     author_id  book_count
+0  AUTHOR_001           2
+1  AUTHOR_002           1
+2  AUTHOR_003           1
+3  AUTHOR_004           2
+4  AUTHOR_005           1
+5  AUTHOR_006           3
+6  AUTHOR_007           2
+2025-09-26 22:04:51.991 | INFO     | __main__:<module>:50 - Executed query_group_by script
+2025-09-26 22:04:51.992 | ERROR    | __main__:execute_sql_file_show:24 - Failed to read SQL file 'sql_queries/query_join.sql': Execution failed on sql 'SELECT
+    books.book_id,
+    books.title,
+    books.published_year,
+    authors.author_id,
+    authors.name AS author_name
+FROM
+    books
+INNER JOIN
+    author ON books.author_id = authors.author_id;': no such table: author
+Traceback (most recent call last):
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2664, in execute
+    cur.execute(sql, *args)
+    │   │       │     └ []
+    │   │       └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    authors.author_id,\n    authors.name AS author_...
+    │   └ <method 'execute' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x000001E75C614EC0>
+
+sqlite3.OperationalError: no such table: author
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\db03_queries.py", line 52, in <module>
+    execute_sql_file_show(conn, "sql_queries/query_join.sql")
+    │                     └ <sqlite3.Connection object at 0x000001E75C5F0220>
+    └ <function execute_sql_file_show at 0x000001E73958A3E0>
+
+> File "C:\GitHub_Repo\datafun-05-sql-project\db03_queries.py", line 16, in execute_sql_file_show
+    df = pd.read_sql_query(sql_script, conn)
+         │  │              │           └ <sqlite3.Connection object at 0x000001E75C5F0220>
+         │  │              └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    authors.author_id,\n    authors.name AS author_...
+         │  └ <function read_sql_query at 0x000001E75C32D4E0>
+         └ <module 'pandas' from 'C:\\GitHub_Repo\\datafun-05-sql-project\\.venv\\Lib\\site-packages\\pandas\\__init__.py'>
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 528, in read_sql_query
+    return pandas_sql.read_query(
+           │          └ <function SQLiteDatabase.read_query at 0x000001E75C354860>
+           └ <pandas.io.sql.SQLiteDatabase object at 0x000001E759E16840>
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2728, in read_query
+    cursor = self.execute(sql, params)
+             │    │       │    └ None
+             │    │       └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    authors.author_id,\n    authors.name AS author_...
+             │    └ <function SQLiteDatabase.execute at 0x000001E75C354720>
+             └ <pandas.io.sql.SQLiteDatabase object at 0x000001E759E16840>
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2676, in execute
+    raise ex from exc
+          └ DatabaseError("Execution failed on sql 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    authors....
+
+pandas.errors.DatabaseError: Execution failed on sql 'SELECT
+    books.book_id,
+    books.title,
+    books.published_year,
+    authors.author_id,
+    authors.name AS author_name
+FROM
+    books
+INNER JOIN
+    author ON books.author_id = authors.author_id;': no such table: author
+2025-09-26 22:04:51.995 | INFO     | __main__:<module>:65 - Rolled back open transaction(s)
+2025-09-26 22:04:51.995 | ERROR    | __main__:<module>:68 - Database setup failed. Exiting with error.
+Traceback (most recent call last):
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2664, in execute
+    cur.execute(sql, *args)
+    │   │       │     └ []
+    │   │       └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    authors.author_id,\n    authors.name AS author_...
+    │   └ <method 'execute' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x000001E75C614EC0>
+
+sqlite3.OperationalError: no such table: author
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+> File "C:\GitHub_Repo\datafun-05-sql-project\db03_queries.py", line 52, in <module>
+    execute_sql_file_show(conn, "sql_queries/query_join.sql")
+    │                     └ <sqlite3.Connection object at 0x000001E75C5F0220>
+    └ <function execute_sql_file_show at 0x000001E73958A3E0>
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\db03_queries.py", line 16, in execute_sql_file_show
+    df = pd.read_sql_query(sql_script, conn)
+         │  │              │           └ <sqlite3.Connection object at 0x000001E75C5F0220>
+         │  │              └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    authors.author_id,\n    authors.name AS author_...
+         │  └ <function read_sql_query at 0x000001E75C32D4E0>
+         └ <module 'pandas' from 'C:\\GitHub_Repo\\datafun-05-sql-project\\.venv\\Lib\\site-packages\\pandas\\__init__.py'>
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 528, in read_sql_query
+    return pandas_sql.read_query(
+           │          └ <function SQLiteDatabase.read_query at 0x000001E75C354860>
+           └ <pandas.io.sql.SQLiteDatabase object at 0x000001E759E16840>
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2728, in read_query
+    cursor = self.execute(sql, params)
+             │    │       │    └ None
+             │    │       └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    authors.author_id,\n    authors.name AS author_...
+             │    └ <function SQLiteDatabase.execute at 0x000001E75C354720>
+             └ <pandas.io.sql.SQLiteDatabase object at 0x000001E759E16840>
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2676, in execute
+    raise ex from exc
+          └ DatabaseError("Execution failed on sql 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    authors....
+
+pandas.errors.DatabaseError: Execution failed on sql 'SELECT
+    books.book_id,
+    books.title,
+    books.published_year,
+    authors.author_id,
+    authors.name AS author_name
+FROM
+    books
+INNER JOIN
+    author ON books.author_id = authors.author_id;': no such table: author
+2025-09-26 22:04:51.997 | INFO     | __main__:<module>:74 - Database connection closed
+2025-09-26 22:10:24.365 | INFO     | utils_logger:<module>:41 - Logging to file: logs\project_log.log
+2025-09-26 22:10:24.365 | INFO     | __main__:<module>:41 - Connected to SQLite database at data/books.db
+2025-09-26 22:10:24.366 | INFO     | __main__:execute_sql_file_show:17 - Executed SQL file: sql_queries/query_aggregation.sql 
+
+2025-09-26 22:10:24.366 | INFO     | __main__:execute_sql_file_show:18 -    total_books
+0           12
+2025-09-26 22:10:24.370 | INFO     | __main__:<module>:44 - Executed query_aggregation script
+2025-09-26 22:10:24.370 | INFO     | __main__:execute_sql_file_show:17 - Executed SQL file: sql_queries/query_filter.sql 
+
+2025-09-26 22:10:24.370 | INFO     | __main__:execute_sql_file_show:18 -     book_id                                    title  ... publication_year   author_id
+0  BOOK_001    Harry Potter and the Sorcerer's Stone  ...             1997  AUTHOR_001
+1  BOOK_002  Harry Potter and the Chamber of Secrets  ...             1998  AUTHOR_001
+
+[2 rows x 5 columns]
+2025-09-26 22:10:24.371 | INFO     | __main__:<module>:47 - Executed query_filter script
+2025-09-26 22:10:24.371 | INFO     | __main__:execute_sql_file_show:17 - Executed SQL file: sql_queries/query_group_by.sql 
+
+2025-09-26 22:10:24.376 | INFO     | __main__:execute_sql_file_show:18 -     author_id  book_count
+0  AUTHOR_001           2
+1  AUTHOR_002           1
+2  AUTHOR_003           1
+3  AUTHOR_004           2
+4  AUTHOR_005           1
+5  AUTHOR_006           3
+6  AUTHOR_007           2
+2025-09-26 22:10:24.377 | INFO     | __main__:<module>:50 - Executed query_group_by script
+2025-09-26 22:10:24.378 | ERROR    | __main__:execute_sql_file_show:24 - Failed to read SQL file 'sql_queries/query_join.sql': Execution failed on sql 'SELECT
+    books.book_id,
+    books.title,
+    books.published_year,
+    authors.author_id,
+    authors.name AS author_name
+FROM
+    books
+INNER JOIN
+    author ON books.author_id = authors.author_id;': no such table: author
+Traceback (most recent call last):
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2664, in execute
+    cur.execute(sql, *args)
+    │   │       │     └ []
+    │   │       └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    authors.author_id,\n    authors.name AS author_...
+    │   └ <method 'execute' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x000001DCEBDF4E40>
+
+sqlite3.OperationalError: no such table: author
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\db03_queries.py", line 52, in <module>
+    execute_sql_file_show(conn, "sql_queries/query_join.sql")
+    │                     └ <sqlite3.Connection object at 0x000001DCEBDD0220>
+    └ <function execute_sql_file_show at 0x000001DCC8D4A3E0>
+
+> File "C:\GitHub_Repo\datafun-05-sql-project\db03_queries.py", line 16, in execute_sql_file_show
+    df = pd.read_sql_query(sql_script, conn)
+         │  │              │           └ <sqlite3.Connection object at 0x000001DCEBDD0220>
+         │  │              └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    authors.author_id,\n    authors.name AS author_...
+         │  └ <function read_sql_query at 0x000001DCEBADD4E0>
+         └ <module 'pandas' from 'C:\\GitHub_Repo\\datafun-05-sql-project\\.venv\\Lib\\site-packages\\pandas\\__init__.py'>
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 528, in read_sql_query
+    return pandas_sql.read_query(
+           │          └ <function SQLiteDatabase.read_query at 0x000001DCEBB04860>
+           └ <pandas.io.sql.SQLiteDatabase object at 0x000001DCEBC814C0>
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2728, in read_query
+    cursor = self.execute(sql, params)
+             │    │       │    └ None
+             │    │       └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    authors.author_id,\n    authors.name AS author_...
+             │    └ <function SQLiteDatabase.execute at 0x000001DCEBB04720>
+             └ <pandas.io.sql.SQLiteDatabase object at 0x000001DCEBC814C0>
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2676, in execute
+    raise ex from exc
+          └ DatabaseError("Execution failed on sql 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    authors....
+
+pandas.errors.DatabaseError: Execution failed on sql 'SELECT
+    books.book_id,
+    books.title,
+    books.published_year,
+    authors.author_id,
+    authors.name AS author_name
+FROM
+    books
+INNER JOIN
+    author ON books.author_id = authors.author_id;': no such table: author
+2025-09-26 22:10:24.381 | INFO     | __main__:<module>:65 - Rolled back open transaction(s)
+2025-09-26 22:10:24.381 | ERROR    | __main__:<module>:68 - Database setup failed. Exiting with error.
+Traceback (most recent call last):
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2664, in execute
+    cur.execute(sql, *args)
+    │   │       │     └ []
+    │   │       └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    authors.author_id,\n    authors.name AS author_...
+    │   └ <method 'execute' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x000001DCEBDF4E40>
+
+sqlite3.OperationalError: no such table: author
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+> File "C:\GitHub_Repo\datafun-05-sql-project\db03_queries.py", line 52, in <module>
+    execute_sql_file_show(conn, "sql_queries/query_join.sql")
+    │                     └ <sqlite3.Connection object at 0x000001DCEBDD0220>
+    └ <function execute_sql_file_show at 0x000001DCC8D4A3E0>
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\db03_queries.py", line 16, in execute_sql_file_show
+    df = pd.read_sql_query(sql_script, conn)
+         │  │              │           └ <sqlite3.Connection object at 0x000001DCEBDD0220>
+         │  │              └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    authors.author_id,\n    authors.name AS author_...
+         │  └ <function read_sql_query at 0x000001DCEBADD4E0>
+         └ <module 'pandas' from 'C:\\GitHub_Repo\\datafun-05-sql-project\\.venv\\Lib\\site-packages\\pandas\\__init__.py'>
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 528, in read_sql_query
+    return pandas_sql.read_query(
+           │          └ <function SQLiteDatabase.read_query at 0x000001DCEBB04860>
+           └ <pandas.io.sql.SQLiteDatabase object at 0x000001DCEBC814C0>
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2728, in read_query
+    cursor = self.execute(sql, params)
+             │    │       │    └ None
+             │    │       └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    authors.author_id,\n    authors.name AS author_...
+             │    └ <function SQLiteDatabase.execute at 0x000001DCEBB04720>
+             └ <pandas.io.sql.SQLiteDatabase object at 0x000001DCEBC814C0>
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2676, in execute
+    raise ex from exc
+          └ DatabaseError("Execution failed on sql 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    authors....
+
+pandas.errors.DatabaseError: Execution failed on sql 'SELECT
+    books.book_id,
+    books.title,
+    books.published_year,
+    authors.author_id,
+    authors.name AS author_name
+FROM
+    books
+INNER JOIN
+    author ON books.author_id = authors.author_id;': no such table: author
+2025-09-26 22:10:24.384 | INFO     | __main__:<module>:74 - Database connection closed
+2025-09-26 22:14:19.996 | INFO     | utils_logger:<module>:41 - Logging to file: logs\project_log.log
+2025-09-26 22:14:19.996 | INFO     | __main__:<module>:48 - Connected to SQLite database at data/books.db
+2025-09-26 22:14:19.996 | INFO     | __main__:execute_sql_file_show:16 - Executing SQL from file: sql_queries/query_aggregation.sql
+SQL:
+select count(*) as total_books from books;
+2025-09-26 22:14:19.996 | INFO     | __main__:execute_sql_file_show:20 - Executed SQL file: sql_queries/query_aggregation.sql 
+
+2025-09-26 22:14:19.996 | INFO     | __main__:execute_sql_file_show:21 -    total_books
+0           12
+2025-09-26 22:14:19.996 | INFO     | __main__:<module>:51 - Executed query_aggregation script
+2025-09-26 22:14:19.996 | INFO     | __main__:execute_sql_file_show:16 - Executing SQL from file: sql_queries/query_filter.sql
+SQL:
+select * from books where author_id = "AUTHOR_001";
+2025-09-26 22:14:19.996 | INFO     | __main__:execute_sql_file_show:20 - Executed SQL file: sql_queries/query_filter.sql 
+
+2025-09-26 22:14:19.996 | INFO     | __main__:execute_sql_file_show:21 -     book_id                                    title  ... publication_year   author_id
+0  BOOK_001    Harry Potter and the Sorcerer's Stone  ...             1997  AUTHOR_001
+1  BOOK_002  Harry Potter and the Chamber of Secrets  ...             1998  AUTHOR_001
+
+[2 rows x 5 columns]
+2025-09-26 22:14:20.016 | INFO     | __main__:<module>:54 - Executed query_filter script
+2025-09-26 22:14:20.016 | INFO     | __main__:execute_sql_file_show:16 - Executing SQL from file: sql_queries/query_group_by.sql
+SQL:
+select author_id, count(*) as book_count
+from books 
+group by author_id;
+2025-09-26 22:14:20.017 | INFO     | __main__:execute_sql_file_show:20 - Executed SQL file: sql_queries/query_group_by.sql 
+
+2025-09-26 22:14:20.018 | INFO     | __main__:execute_sql_file_show:21 -     author_id  book_count
+0  AUTHOR_001           2
+1  AUTHOR_002           1
+2  AUTHOR_003           1
+3  AUTHOR_004           2
+4  AUTHOR_005           1
+5  AUTHOR_006           3
+6  AUTHOR_007           2
+2025-09-26 22:14:20.020 | INFO     | __main__:<module>:57 - Executed query_group_by script
+2025-09-26 22:14:20.027 | INFO     | __main__:execute_sql_file_show:16 - Executing SQL from file: sql_queries/query_join.sql
+SQL:
+SELECT
+    books.book_id,
+    books.title,
+    books.published_year,
+    authors.author_id,
+    authors.name AS author_name
+FROM books
+INNER JOIN authors
+    ON books.author_id = authors.author_id;
+2025-09-26 22:14:20.029 | ERROR    | __main__:execute_sql_file_show:25 - Pandas/SQLite error executing 'sql_queries/query_join.sql': Execution failed on sql 'SELECT
+    books.book_id,
+    books.title,
+    books.published_year,
+    authors.author_id,
+    authors.name AS author_name
+FROM books
+INNER JOIN authors
+    ON books.author_id = authors.author_id;': no such column: books.published_year
+Traceback (most recent call last):
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2664, in execute
+    cur.execute(sql, *args)
+    │   │       │     └ []
+    │   │       └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    authors.author_id,\n    authors.name AS author_...
+    │   └ <method 'execute' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x000002D0063E4E40>
+
+sqlite3.OperationalError: no such column: books.published_year
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\db03_queries.py", line 59, in <module>
+    execute_sql_file_show(conn, "sql_queries/query_join.sql")
+    │                     └ <sqlite3.Connection object at 0x000002D0063BC220>
+    └ <function execute_sql_file_show at 0x000002D06320A3E0>
+
+> File "C:\GitHub_Repo\datafun-05-sql-project\db03_queries.py", line 19, in execute_sql_file_show
+    df = pd.read_sql_query(sql_script, conn)
+         │  │              │           └ <sqlite3.Connection object at 0x000002D0063BC220>
+         │  │              └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    authors.author_id,\n    authors.name AS author_...
+         │  └ <function read_sql_query at 0x000002D0060CD580>
+         └ <module 'pandas' from 'C:\\GitHub_Repo\\datafun-05-sql-project\\.venv\\Lib\\site-packages\\pandas\\__init__.py'>
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 528, in read_sql_query
+    return pandas_sql.read_query(
+           │          └ <function SQLiteDatabase.read_query at 0x000002D0060F0900>
+           └ <pandas.io.sql.SQLiteDatabase object at 0x000002D004773230>
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2728, in read_query
+    cursor = self.execute(sql, params)
+             │    │       │    └ None
+             │    │       └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    authors.author_id,\n    authors.name AS author_...
+             │    └ <function SQLiteDatabase.execute at 0x000002D0060F07C0>
+             └ <pandas.io.sql.SQLiteDatabase object at 0x000002D004773230>
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2676, in execute
+    raise ex from exc
+          └ DatabaseError("Execution failed on sql 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    authors....
+
+pandas.errors.DatabaseError: Execution failed on sql 'SELECT
+    books.book_id,
+    books.title,
+    books.published_year,
+    authors.author_id,
+    authors.name AS author_name
+FROM books
+INNER JOIN authors
+    ON books.author_id = authors.author_id;': no such column: books.published_year
+2025-09-26 22:14:20.030 | INFO     | __main__:<module>:72 - Rolled back open transaction(s)
+2025-09-26 22:14:20.032 | ERROR    | __main__:<module>:75 - Database setup failed. Exiting with error.
+Traceback (most recent call last):
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2664, in execute
+    cur.execute(sql, *args)
+    │   │       │     └ []
+    │   │       └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    authors.author_id,\n    authors.name AS author_...
+    │   └ <method 'execute' of 'sqlite3.Cursor' objects>
+    └ <sqlite3.Cursor object at 0x000002D0063E4E40>
+
+sqlite3.OperationalError: no such column: books.published_year
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+> File "C:\GitHub_Repo\datafun-05-sql-project\db03_queries.py", line 59, in <module>
+    execute_sql_file_show(conn, "sql_queries/query_join.sql")
+    │                     └ <sqlite3.Connection object at 0x000002D0063BC220>
+    └ <function execute_sql_file_show at 0x000002D06320A3E0>
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\db03_queries.py", line 19, in execute_sql_file_show
+    df = pd.read_sql_query(sql_script, conn)
+         │  │              │           └ <sqlite3.Connection object at 0x000002D0063BC220>
+         │  │              └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    authors.author_id,\n    authors.name AS author_...
+         │  └ <function read_sql_query at 0x000002D0060CD580>
+         └ <module 'pandas' from 'C:\\GitHub_Repo\\datafun-05-sql-project\\.venv\\Lib\\site-packages\\pandas\\__init__.py'>
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 528, in read_sql_query
+    return pandas_sql.read_query(
+           │          └ <function SQLiteDatabase.read_query at 0x000002D0060F0900>
+           └ <pandas.io.sql.SQLiteDatabase object at 0x000002D004773230>
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2728, in read_query
+    cursor = self.execute(sql, params)
+             │    │       │    └ None
+             │    │       └ 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    authors.author_id,\n    authors.name AS author_...
+             │    └ <function SQLiteDatabase.execute at 0x000002D0060F07C0>
+             └ <pandas.io.sql.SQLiteDatabase object at 0x000002D004773230>
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\io\sql.py", line 2676, in execute
+    raise ex from exc
+          └ DatabaseError("Execution failed on sql 'SELECT\n    books.book_id,\n    books.title,\n    books.published_year,\n    authors....
+
+pandas.errors.DatabaseError: Execution failed on sql 'SELECT
+    books.book_id,
+    books.title,
+    books.published_year,
+    authors.author_id,
+    authors.name AS author_name
+FROM books
+INNER JOIN authors
+    ON books.author_id = authors.author_id;': no such column: books.published_year
+2025-09-26 22:14:20.032 | INFO     | __main__:<module>:81 - Database connection closed
+2025-09-26 22:14:47.365 | INFO     | utils_logger:<module>:41 - Logging to file: logs\project_log.log
+2025-09-26 22:14:47.365 | INFO     | __main__:<module>:48 - Connected to SQLite database at data/books.db
+2025-09-26 22:14:47.365 | INFO     | __main__:execute_sql_file_show:16 - Executing SQL from file: sql_queries/query_aggregation.sql
+SQL:
+select count(*) as total_books from books;
+2025-09-26 22:14:47.365 | INFO     | __main__:execute_sql_file_show:20 - Executed SQL file: sql_queries/query_aggregation.sql 
+
+2025-09-26 22:14:47.365 | INFO     | __main__:execute_sql_file_show:21 -    total_books
+0           12
+2025-09-26 22:14:47.374 | INFO     | __main__:<module>:51 - Executed query_aggregation script
+2025-09-26 22:14:47.374 | INFO     | __main__:execute_sql_file_show:16 - Executing SQL from file: sql_queries/query_filter.sql
+SQL:
+select * from books where author_id = "AUTHOR_001";
+2025-09-26 22:14:47.375 | INFO     | __main__:execute_sql_file_show:20 - Executed SQL file: sql_queries/query_filter.sql 
+
+2025-09-26 22:14:47.375 | INFO     | __main__:execute_sql_file_show:21 -     book_id                                    title  ... publication_year   author_id
+0  BOOK_001    Harry Potter and the Sorcerer's Stone  ...             1997  AUTHOR_001
+1  BOOK_002  Harry Potter and the Chamber of Secrets  ...             1998  AUTHOR_001
+
+[2 rows x 5 columns]
+2025-09-26 22:14:47.379 | INFO     | __main__:<module>:54 - Executed query_filter script
+2025-09-26 22:14:47.379 | INFO     | __main__:execute_sql_file_show:16 - Executing SQL from file: sql_queries/query_group_by.sql
+SQL:
+select author_id, count(*) as book_count
+from books 
+group by author_id;
+2025-09-26 22:14:47.380 | INFO     | __main__:execute_sql_file_show:20 - Executed SQL file: sql_queries/query_group_by.sql 
+
+2025-09-26 22:14:47.380 | INFO     | __main__:execute_sql_file_show:21 -     author_id  book_count
+0  AUTHOR_001           2
+1  AUTHOR_002           1
+2  AUTHOR_003           1
+3  AUTHOR_004           2
+4  AUTHOR_005           1
+5  AUTHOR_006           3
+6  AUTHOR_007           2
+2025-09-26 22:14:47.382 | INFO     | __main__:<module>:57 - Executed query_group_by script
+2025-09-26 22:14:47.393 | INFO     | __main__:execute_sql_file_show:16 - Executing SQL from file: sql_queries/query_join.sql
+SQL:
+SELECT
+    books.book_id,
+    books.title,
+    books.publication_year,
+    authors.author_id,
+    authors.name AS author_name
+FROM books
+INNER JOIN authors
+    ON books.author_id = authors.author_id;
+2025-09-26 22:14:47.395 | INFO     | __main__:execute_sql_file_show:20 - Executed SQL file: sql_queries/query_join.sql 
+
+2025-09-26 22:14:47.395 | INFO     | __main__:execute_sql_file_show:21 -      book_id  ...              author_name
+0   BOOK_001  ...  Joanne Kathleen Rowling
+1   BOOK_002  ...  Joanne Kathleen Rowling
+2   BOOK_004  ...            George Orwell
+3   BOOK_005  ...               Harper Lee
+4   BOOK_006  ...              Jane Austen
+5   BOOK_007  ...              Jane Austen
+6   BOOK_008  ...      F. Scott Fitzgerald
+7   BOOK_009  ...   Gabriel García Márquez
+8   BOOK_010  ...   Gabriel García Márquez
+9   BOOK_011  ...            Chinua Achebe
+10  BOOK_012  ...            Chinua Achebe
+11  BOOK_013  ...   Gabriel García Márquez
+
+[12 rows x 5 columns]
+2025-09-26 22:14:47.402 | INFO     | __main__:<module>:60 - Executed query_join script
+2025-09-26 22:14:47.402 | INFO     | __main__:execute_sql_file_show:16 - Executing SQL from file: sql_queries/query_sorting.sql
+SQL:
+select * from books order by publication_year ASC;
+2025-09-26 22:14:47.402 | INFO     | __main__:execute_sql_file_show:20 - Executed SQL file: sql_queries/query_sorting.sql 
+
+2025-09-26 22:14:47.402 | INFO     | __main__:execute_sql_file_show:21 -      book_id                                    title  ... publication_year   author_id
+0   BOOK_007                    Sense and Sensibility  ...             1811  AUTHOR_004
+1   BOOK_006                      Pride and Prejudice  ...             1813  AUTHOR_004
+2   BOOK_008                         The Great Gatsby  ...             1925  AUTHOR_005
+3   BOOK_004                              Animal Farm  ...             1945  AUTHOR_002
+4   BOOK_011                        Things Fall Apart  ...             1958  AUTHOR_007
+5   BOOK_005                    To Kill a Mockingbird  ...             1960  AUTHOR_003
+6   BOOK_012                        No Longer at Ease  ...             1960  AUTHOR_007
+7   BOOK_009            One Hundred Years of Solitude  ...             1967  AUTHOR_006
+8   BOOK_013            Chronicle of a Death Foretold  ...             1981  AUTHOR_006
+9   BOOK_010              Love in the Time of Cholera  ...             1985  AUTHOR_006
+10  BOOK_001    Harry Potter and the Sorcerer's Stone  ...             1997  AUTHOR_001
+11  BOOK_002  Harry Potter and the Chamber of Secrets  ...             1998  AUTHOR_001
+
+[12 rows x 5 columns]
+2025-09-26 22:14:47.408 | INFO     | __main__:<module>:63 - Executed query_sorting script
+2025-09-26 22:14:47.408 | INFO     | __main__:<module>:66 - Database setup completed successfully.
+2025-09-26 22:14:47.408 | INFO     | __main__:<module>:81 - Database connection closed
+2025-09-26 22:17:48.523 | INFO     | utils_logger:<module>:41 - Logging to file: logs\project_log.log
+2025-09-26 22:17:48.524 | INFO     | __main__:<module>:41 - Connected to SQLite database at data/books.db
+2025-09-26 22:17:48.525 | INFO     | __main__:execute_sql_file_show:17 - Executed SQL file: sql_queries/query_aggregation.sql 
+
+2025-09-26 22:17:48.525 | INFO     | __main__:execute_sql_file_show:18 -    total_books
+0           12
+2025-09-26 22:17:48.527 | INFO     | __main__:<module>:44 - Executed query_aggregation script
+2025-09-26 22:17:48.527 | INFO     | __main__:execute_sql_file_show:17 - Executed SQL file: sql_queries/query_filter.sql 
+
+2025-09-26 22:17:48.527 | INFO     | __main__:execute_sql_file_show:18 -     book_id                                    title    genre  publication_year   author_id
+0  BOOK_001    Harry Potter and the Sorcerer's Stone  Fantasy              1997  AUTHOR_001
+1  BOOK_002  Harry Potter and the Chamber of Secrets  Fantasy              1998  AUTHOR_001
+2025-09-26 22:17:48.527 | INFO     | __main__:<module>:47 - Executed query_filter script
+2025-09-26 22:17:48.527 | INFO     | __main__:execute_sql_file_show:17 - Executed SQL file: sql_queries/query_group_by.sql 
+
+2025-09-26 22:17:48.527 | INFO     | __main__:execute_sql_file_show:18 -     author_id  book_count
+0  AUTHOR_001           2
+1  AUTHOR_002           1
+2  AUTHOR_003           1
+3  AUTHOR_004           2
+4  AUTHOR_005           1
+5  AUTHOR_006           3
+6  AUTHOR_007           2
+2025-09-26 22:17:48.527 | INFO     | __main__:<module>:50 - Executed query_group_by script
+2025-09-26 22:17:48.537 | INFO     | __main__:execute_sql_file_show:17 - Executed SQL file: sql_queries/query_join.sql 
+
+2025-09-26 22:17:48.537 | INFO     | __main__:execute_sql_file_show:18 -      book_id                                    title  publication_year   author_id              author_name
+0   BOOK_001    Harry Potter and the Sorcerer's Stone              1997  AUTHOR_001  Joanne Kathleen Rowling
+1   BOOK_002  Harry Potter and the Chamber of Secrets              1998  AUTHOR_001  Joanne Kathleen Rowling
+2   BOOK_004                              Animal Farm              1945  AUTHOR_002            George Orwell
+3   BOOK_005                    To Kill a Mockingbird              1960  AUTHOR_003               Harper Lee
+4   BOOK_006                      Pride and Prejudice              1813  AUTHOR_004              Jane Austen
+5   BOOK_007                    Sense and Sensibility              1811  AUTHOR_004              Jane Austen
+6   BOOK_008                         The Great Gatsby              1925  AUTHOR_005      F. Scott Fitzgerald
+7   BOOK_009            One Hundred Years of Solitude              1967  AUTHOR_006   Gabriel García Márquez
+8   BOOK_010              Love in the Time of Cholera              1985  AUTHOR_006   Gabriel García Márquez
+9   BOOK_011                        Things Fall Apart              1958  AUTHOR_007            Chinua Achebe
+10  BOOK_012                        No Longer at Ease              1960  AUTHOR_007            Chinua Achebe
+11  BOOK_013            Chronicle of a Death Foretold              1981  AUTHOR_006   Gabriel García Márquez
+2025-09-26 22:17:48.541 | INFO     | __main__:<module>:53 - Executed query_join script
+2025-09-26 22:17:48.542 | INFO     | __main__:execute_sql_file_show:17 - Executed SQL file: sql_queries/query_sorting.sql 
+
+2025-09-26 22:17:48.542 | INFO     | __main__:execute_sql_file_show:18 -      book_id                                    title               genre  publication_year   author_id
+0   BOOK_007                    Sense and Sensibility             Romance              1811  AUTHOR_004
+1   BOOK_006                      Pride and Prejudice             Romance              1813  AUTHOR_004
+2   BOOK_008                         The Great Gatsby             Tragedy              1925  AUTHOR_005
+3   BOOK_004                              Animal Farm    Political Satire              1945  AUTHOR_002
+4   BOOK_011                        Things Fall Apart  Historical Fiction              1958  AUTHOR_007
+5   BOOK_005                    To Kill a Mockingbird             Fiction              1960  AUTHOR_003
+6   BOOK_012                        No Longer at Ease             Fiction              1960  AUTHOR_007
+7   BOOK_009            One Hundred Years of Solitude       Magic Realism              1967  AUTHOR_006
+8   BOOK_013            Chronicle of a Death Foretold             Novella              1981  AUTHOR_006
+9   BOOK_010              Love in the Time of Cholera             Romance              1985  AUTHOR_006
+10  BOOK_001    Harry Potter and the Sorcerer's Stone             Fantasy              1997  AUTHOR_001
+11  BOOK_002  Harry Potter and the Chamber of Secrets             Fantasy              1998  AUTHOR_001
+2025-09-26 22:17:48.547 | INFO     | __main__:<module>:56 - Executed query_sorting script
+2025-09-26 22:17:48.547 | INFO     | __main__:<module>:59 - Database setup completed successfully.
+2025-09-26 22:17:48.547 | INFO     | __main__:<module>:74 - Database connection closed
+2025-09-26 22:18:20.750 | INFO     | utils_logger:<module>:41 - Logging to file: logs\project_log.log
+2025-09-26 22:18:20.751 | INFO     | __main__:<module>:41 - Connected to SQLite database at data/books.db
+2025-09-26 22:18:20.753 | INFO     | __main__:execute_sql_file_show:17 - Executed SQL file: sql_queries/query_aggregation.sql 
+
+2025-09-26 22:18:20.753 | ERROR    | __main__:execute_sql_file_show:27 - Unexpected error executing 'sql_queries/query_aggregation.sql': ufunc 'add' did not contain a loop with signature matching types (dtype('<U1'), dtype('int64')) -> None
+Traceback (most recent call last):
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\db03_queries.py", line 43, in <module>
+    execute_sql_file_show(conn, "sql_queries/query_aggregation.sql")
+    │                     └ <sqlite3.Connection object at 0x000002509F22C220>
+    └ <function execute_sql_file_show at 0x00000250FC16A3E0>
+
+> File "C:\GitHub_Repo\datafun-05-sql-project\db03_queries.py", line 18, in execute_sql_file_show
+    logger.info(f"\n"+df)
+    │      │          └    total_books
+    │      │            0           12
+    │      └ <function Logger.info at 0x000002509F2139C0>
+    └ <loguru.logger handlers=[(id=0, level=10, sink=<stderr>), (id=1, level=20, sink='logs\project_log.log')]>
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\core\ops\common.py", line 76, in new_method
+    return method(self, other)
+           │      │     └ '\n'
+           │      └    total_books
+           │        0           12
+           └ <function OpsMixin.__radd__ at 0x000002509D5DA660>
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\core\arraylike.py", line 190, in __radd__
+    return self._arith_method(other, roperator.radd)
+           │    │             │      │         └ <function radd at 0x000002509D59ED40>
+           │    │             │      └ <module 'pandas.core.roperator' from 'C:\\GitHub_Repo\\datafun-05-sql-project\\.venv\\Lib\\site-packages\\pandas\\core\\roper...
+           │    │             └ '\n'
+           │    └ <function DataFrame._arith_method at 0x000002509DCF51C0>
+           └    total_books
+             0           12
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\core\frame.py", line 7920, in _arith_method
+    new_data = self._dispatch_frame_op(other, op, axis=axis)
+               │    │                  │      │        └ 1
+               │    │                  │      └ <function radd at 0x000002509D59ED40>
+               │    │                  └ '\n'
+               │    └ <function DataFrame._dispatch_frame_op at 0x000002509DCF5260>
+               └    total_books
+                 0           12
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\core\frame.py", line 7952, in _dispatch_frame_op
+    bm = self._mgr.apply(array_op, right=right)
+         │    │    │     │               └ '\n'
+         │    │    │     └ functools.partial(<function arithmetic_op at 0x000002509D5D8680>, op=<function radd at 0x000002509D59ED40>)
+         │    │    └ <function BaseBlockManager.apply at 0x000002509DA94720>
+         │    └ BlockManager
+         │      Items: Index(['total_books'], dtype='object')
+         │      Axis 1: RangeIndex(start=0, stop=1, step=1)
+         │      NumpyBlock: slice(0, 1...
+         └    total_books
+           0           12
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\core\internals\managers.py", line 361, in apply
+    applied = b.apply(f, **kwargs)
+              │ │     │    └ {'right': '\n'}
+              │ │     └ functools.partial(<function arithmetic_op at 0x000002509D5D8680>, op=<function radd at 0x000002509D59ED40>)
+              │ └ <function Block.apply at 0x000002509DA41760>
+              └ NumpyBlock: slice(0, 1, 1), 1 x 1, dtype: int64
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\core\internals\blocks.py", line 395, in apply
+    result = func(self.values, **kwargs)
+             │    │    │         └ {'right': '\n'}
+             │    │    └ <attribute 'values' of 'pandas._libs.internals.Block' objects>
+             │    └ NumpyBlock: slice(0, 1, 1), 1 x 1, dtype: int64
+             └ functools.partial(<function arithmetic_op at 0x000002509D5D8680>, op=<function radd at 0x000002509D59ED40>)
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\core\ops\array_ops.py", line 283, in arithmetic_op
+    res_values = _na_arithmetic_op(left, right, op)  # type: ignore[arg-type]
+                 │                 │     │      └ <function radd at 0x000002509D59ED40>
+                 │                 │     └ '\n'
+                 │                 └ array([[12]])
+                 └ <function _na_arithmetic_op at 0x000002509D5D85E0>
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\core\ops\array_ops.py", line 218, in _na_arithmetic_op
+    result = func(left, right)
+             │    │     └ '\n'
+             │    └ array([[12]])
+             └ <function radd at 0x000002509D59ED40>
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\core\roperator.py", line 11, in radd
+    return right + left
+           │       └ array([[12]])
+           └ '\n'
+
+numpy._core._exceptions._UFuncNoLoopError: ufunc 'add' did not contain a loop with signature matching types (dtype('<U1'), dtype('int64')) -> None
+2025-09-26 22:18:20.773 | INFO     | __main__:<module>:65 - Rolled back open transaction(s)
+2025-09-26 22:18:20.773 | ERROR    | __main__:<module>:68 - Database setup failed. Exiting with error.
+Traceback (most recent call last):
+
+> File "C:\GitHub_Repo\datafun-05-sql-project\db03_queries.py", line 43, in <module>
+    execute_sql_file_show(conn, "sql_queries/query_aggregation.sql")
+    │                     └ <sqlite3.Connection object at 0x000002509F22C220>
+    └ <function execute_sql_file_show at 0x00000250FC16A3E0>
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\db03_queries.py", line 18, in execute_sql_file_show
+    logger.info(f"\n"+df)
+    │      │          └    total_books
+    │      │            0           12
+    │      └ <function Logger.info at 0x000002509F2139C0>
+    └ <loguru.logger handlers=[(id=0, level=10, sink=<stderr>), (id=1, level=20, sink='logs\project_log.log')]>
+
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\core\ops\common.py", line 76, in new_method
+    return method(self, other)
+           │      │     └ '\n'
+           │      └    total_books
+           │        0           12
+           └ <function OpsMixin.__radd__ at 0x000002509D5DA660>
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\core\arraylike.py", line 190, in __radd__
+    return self._arith_method(other, roperator.radd)
+           │    │             │      │         └ <function radd at 0x000002509D59ED40>
+           │    │             │      └ <module 'pandas.core.roperator' from 'C:\\GitHub_Repo\\datafun-05-sql-project\\.venv\\Lib\\site-packages\\pandas\\core\\roper...
+           │    │             └ '\n'
+           │    └ <function DataFrame._arith_method at 0x000002509DCF51C0>
+           └    total_books
+             0           12
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\core\frame.py", line 7920, in _arith_method
+    new_data = self._dispatch_frame_op(other, op, axis=axis)
+               │    │                  │      │        └ 1
+               │    │                  │      └ <function radd at 0x000002509D59ED40>
+               │    │                  └ '\n'
+               │    └ <function DataFrame._dispatch_frame_op at 0x000002509DCF5260>
+               └    total_books
+                 0           12
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\core\frame.py", line 7952, in _dispatch_frame_op
+    bm = self._mgr.apply(array_op, right=right)
+         │    │    │     │               └ '\n'
+         │    │    │     └ functools.partial(<function arithmetic_op at 0x000002509D5D8680>, op=<function radd at 0x000002509D59ED40>)
+         │    │    └ <function BaseBlockManager.apply at 0x000002509DA94720>
+         │    └ BlockManager
+         │      Items: Index(['total_books'], dtype='object')
+         │      Axis 1: RangeIndex(start=0, stop=1, step=1)
+         │      NumpyBlock: slice(0, 1...
+         └    total_books
+           0           12
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\core\internals\managers.py", line 361, in apply
+    applied = b.apply(f, **kwargs)
+              │ │     │    └ {'right': '\n'}
+              │ │     └ functools.partial(<function arithmetic_op at 0x000002509D5D8680>, op=<function radd at 0x000002509D59ED40>)
+              │ └ <function Block.apply at 0x000002509DA41760>
+              └ NumpyBlock: slice(0, 1, 1), 1 x 1, dtype: int64
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\core\internals\blocks.py", line 395, in apply
+    result = func(self.values, **kwargs)
+             │    │    │         └ {'right': '\n'}
+             │    │    └ <attribute 'values' of 'pandas._libs.internals.Block' objects>
+             │    └ NumpyBlock: slice(0, 1, 1), 1 x 1, dtype: int64
+             └ functools.partial(<function arithmetic_op at 0x000002509D5D8680>, op=<function radd at 0x000002509D59ED40>)
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\core\ops\array_ops.py", line 283, in arithmetic_op
+    res_values = _na_arithmetic_op(left, right, op)  # type: ignore[arg-type]
+                 │                 │     │      └ <function radd at 0x000002509D59ED40>
+                 │                 │     └ '\n'
+                 │                 └ array([[12]])
+                 └ <function _na_arithmetic_op at 0x000002509D5D85E0>
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\core\ops\array_ops.py", line 218, in _na_arithmetic_op
+    result = func(left, right)
+             │    │     └ '\n'
+             │    └ array([[12]])
+             └ <function radd at 0x000002509D59ED40>
+  File "C:\GitHub_Repo\datafun-05-sql-project\.venv\Lib\site-packages\pandas\core\roperator.py", line 11, in radd
+    return right + left
+           │       └ array([[12]])
+           └ '\n'
+
+numpy._core._exceptions._UFuncNoLoopError: ufunc 'add' did not contain a loop with signature matching types (dtype('<U1'), dtype('int64')) -> None
+2025-09-26 22:18:20.790 | INFO     | __main__:<module>:74 - Database connection closed
+2025-09-26 22:18:44.036 | INFO     | utils_logger:<module>:41 - Logging to file: logs\project_log.log
+2025-09-26 22:18:44.036 | INFO     | __main__:<module>:41 - Connected to SQLite database at data/books.db
+2025-09-26 22:18:44.036 | INFO     | __main__:execute_sql_file_show:17 - Executed SQL file: sql_queries/query_aggregation.sql 
+
+2025-09-26 22:18:44.048 | INFO     | __main__:execute_sql_file_show:18 - 
+    total_books
+0           12
+2025-09-26 22:18:44.048 | INFO     | __main__:<module>:44 - Executed query_aggregation script
+2025-09-26 22:18:44.051 | INFO     | __main__:execute_sql_file_show:17 - Executed SQL file: sql_queries/query_filter.sql 
+
+2025-09-26 22:18:44.053 | INFO     | __main__:execute_sql_file_show:18 - 
+     book_id                                    title    genre  publication_year   author_id
+0  BOOK_001    Harry Potter and the Sorcerer's Stone  Fantasy              1997  AUTHOR_001
+1  BOOK_002  Harry Potter and the Chamber of Secrets  Fantasy              1998  AUTHOR_001
+2025-09-26 22:18:44.053 | INFO     | __main__:<module>:47 - Executed query_filter script
+2025-09-26 22:18:44.055 | INFO     | __main__:execute_sql_file_show:17 - Executed SQL file: sql_queries/query_group_by.sql 
+
+2025-09-26 22:18:44.055 | INFO     | __main__:execute_sql_file_show:18 - 
+     author_id  book_count
+0  AUTHOR_001           2
+1  AUTHOR_002           1
+2  AUTHOR_003           1
+3  AUTHOR_004           2
+4  AUTHOR_005           1
+5  AUTHOR_006           3
+6  AUTHOR_007           2
+2025-09-26 22:18:44.055 | INFO     | __main__:<module>:50 - Executed query_group_by script
+2025-09-26 22:18:44.055 | INFO     | __main__:execute_sql_file_show:17 - Executed SQL file: sql_queries/query_join.sql 
+
+2025-09-26 22:18:44.062 | INFO     | __main__:execute_sql_file_show:18 - 
+      book_id                                    title  publication_year   author_id              author_name
+0   BOOK_001    Harry Potter and the Sorcerer's Stone              1997  AUTHOR_001  Joanne Kathleen Rowling
+1   BOOK_002  Harry Potter and the Chamber of Secrets              1998  AUTHOR_001  Joanne Kathleen Rowling
+2   BOOK_004                              Animal Farm              1945  AUTHOR_002            George Orwell
+3   BOOK_005                    To Kill a Mockingbird              1960  AUTHOR_003               Harper Lee
+4   BOOK_006                      Pride and Prejudice              1813  AUTHOR_004              Jane Austen
+5   BOOK_007                    Sense and Sensibility              1811  AUTHOR_004              Jane Austen
+6   BOOK_008                         The Great Gatsby              1925  AUTHOR_005      F. Scott Fitzgerald
+7   BOOK_009            One Hundred Years of Solitude              1967  AUTHOR_006   Gabriel García Márquez
+8   BOOK_010              Love in the Time of Cholera              1985  AUTHOR_006   Gabriel García Márquez
+9   BOOK_011                        Things Fall Apart              1958  AUTHOR_007            Chinua Achebe
+10  BOOK_012                        No Longer at Ease              1960  AUTHOR_007            Chinua Achebe
+11  BOOK_013            Chronicle of a Death Foretold              1981  AUTHOR_006   Gabriel García Márquez
+2025-09-26 22:18:44.062 | INFO     | __main__:<module>:53 - Executed query_join script
+2025-09-26 22:18:44.062 | INFO     | __main__:execute_sql_file_show:17 - Executed SQL file: sql_queries/query_sorting.sql 
+
+2025-09-26 22:18:44.067 | INFO     | __main__:execute_sql_file_show:18 - 
+      book_id                                    title               genre  publication_year   author_id
+0   BOOK_007                    Sense and Sensibility             Romance              1811  AUTHOR_004
+1   BOOK_006                      Pride and Prejudice             Romance              1813  AUTHOR_004
+2   BOOK_008                         The Great Gatsby             Tragedy              1925  AUTHOR_005
+3   BOOK_004                              Animal Farm    Political Satire              1945  AUTHOR_002
+4   BOOK_011                        Things Fall Apart  Historical Fiction              1958  AUTHOR_007
+5   BOOK_005                    To Kill a Mockingbird             Fiction              1960  AUTHOR_003
+6   BOOK_012                        No Longer at Ease             Fiction              1960  AUTHOR_007
+7   BOOK_009            One Hundred Years of Solitude       Magic Realism              1967  AUTHOR_006
+8   BOOK_013            Chronicle of a Death Foretold             Novella              1981  AUTHOR_006
+9   BOOK_010              Love in the Time of Cholera             Romance              1985  AUTHOR_006
+10  BOOK_001    Harry Potter and the Sorcerer's Stone             Fantasy              1997  AUTHOR_001
+11  BOOK_002  Harry Potter and the Chamber of Secrets             Fantasy              1998  AUTHOR_001
+2025-09-26 22:18:44.068 | INFO     | __main__:<module>:56 - Executed query_sorting script
+2025-09-26 22:18:44.068 | INFO     | __main__:<module>:59 - Database setup completed successfully.
+2025-09-26 22:18:44.068 | INFO     | __main__:<module>:74 - Database connection closed
+2025-09-26 22:19:39.715 | INFO     | utils_logger:<module>:41 - Logging to file: logs\project_log.log
+2025-09-26 22:19:39.715 | INFO     | __main__:<module>:50 - Connected to SQLite database at data/books.db
+2025-09-26 22:19:39.736 | INFO     | __main__:execute_sql_file:16 - Executed SQL file: sql_create/01_drop_tables.sql
+2025-09-26 22:19:39.736 | INFO     | __main__:<module>:53 - Executed drop tables script
+2025-09-26 22:19:39.753 | INFO     | __main__:execute_sql_file:16 - Executed SQL file: sql_create/02_create_tables.sql
+2025-09-26 22:19:39.753 | INFO     | __main__:<module>:56 - Executed create tables script
+2025-09-26 22:19:39.756 | INFO     | __main__:show_table:33 - Table 'authors'
+2025-09-26 22:19:39.757 | INFO     | __main__:show_table:34 - 
+ Empty DataFrame
+Columns: [author_id, name, birth_year, nationality]
+Index: []
+2025-09-26 22:19:39.758 | INFO     | __main__:show_table:33 - Table 'books'
+2025-09-26 22:19:39.759 | INFO     | __main__:show_table:34 - 
+ Empty DataFrame
+Columns: [book_id, title, genre, publication_year, author_id]
+Index: []
+2025-09-26 22:19:39.776 | INFO     | __main__:execute_sql_file:16 - Executed SQL file: sql_create/03_insert_records.sql
+2025-09-26 22:19:39.776 | INFO     | __main__:<module>:60 - Executed insert records script
+2025-09-26 22:19:39.778 | INFO     | __main__:show_table:33 - Table 'authors'
+2025-09-26 22:19:39.781 | INFO     | __main__:show_table:34 - 
+     author_id                    name  birth_year nationality
+0  AUTHOR_001            J.K. Rowling        1965     British
+1  AUTHOR_002           George Orwell        1903     British
+2  AUTHOR_003              Harper Lee        1926    American
+3  AUTHOR_004             Jane Austen        1775     British
+4  AUTHOR_005     F. Scott Fitzgerald        1896    American
+5  AUTHOR_006  Gabriel García Márquez        1927   Colombian
+6  AUTHOR_007           Chinua Achebe        1930    Nigerian
+2025-09-26 22:19:39.782 | INFO     | __main__:show_table:33 - Table 'books'
+2025-09-26 22:19:39.785 | INFO     | __main__:show_table:34 - 
+      book_id                                    title               genre  publication_year   author_id
+0   BOOK_001    Harry Potter and the Sorcerer's Stone             Fantasy              1997  AUTHOR_001
+1   BOOK_002  Harry Potter and the Chamber of Secrets             Fantasy              1998  AUTHOR_001
+2   BOOK_003                                     1984           Dystopian              1949  AUTHOR_002
+3   BOOK_004                              Animal Farm    Political Satire              1945  AUTHOR_002
+4   BOOK_005                    To Kill a Mockingbird             Fiction              1960  AUTHOR_003
+5   BOOK_006                      Pride and Prejudice             Romance              1813  AUTHOR_004
+6   BOOK_007                    Sense and Sensibility             Romance              1811  AUTHOR_004
+7   BOOK_008                         The Great Gatsby             Tragedy              1925  AUTHOR_005
+8   BOOK_009            One Hundred Years of Solitude       Magic Realism              1967  AUTHOR_006
+9   BOOK_010              Love in the Time of Cholera             Romance              1985  AUTHOR_006
+10  BOOK_011                        Things Fall Apart  Historical Fiction              1958  AUTHOR_007
+11  BOOK_012                        No Longer at Ease             Fiction              1960  AUTHOR_007
+12  BOOK_013            Chronicle of a Death Foretold             Novella              1981  AUTHOR_006
+2025-09-26 22:19:39.785 | INFO     | __main__:<module>:64 - Database setup completed successfully.
+2025-09-26 22:19:39.785 | INFO     | __main__:<module>:79 - Database connection closed
+2025-09-26 22:19:49.731 | INFO     | utils_logger:<module>:41 - Logging to file: logs\project_log.log
+2025-09-26 22:19:49.738 | INFO     | __main__:<module>:50 - Connected to SQLite database at data/books.db
+2025-09-26 22:19:49.748 | INFO     | __main__:execute_sql_file:16 - Executed SQL file: sql_features/delete_records.sql
+2025-09-26 22:19:49.748 | INFO     | __main__:<module>:53 - Executed DELETE script
+2025-09-26 22:19:49.749 | INFO     | __main__:show_table:33 - Table 'books'
+2025-09-26 22:19:49.753 | INFO     | __main__:show_table:34 - 
+      book_id                                    title               genre  publication_year   author_id
+0   BOOK_001    Harry Potter and the Sorcerer's Stone             Fantasy              1997  AUTHOR_001
+1   BOOK_002  Harry Potter and the Chamber of Secrets             Fantasy              1998  AUTHOR_001
+2   BOOK_004                              Animal Farm    Political Satire              1945  AUTHOR_002
+3   BOOK_005                    To Kill a Mockingbird             Fiction              1960  AUTHOR_003
+4   BOOK_006                      Pride and Prejudice             Romance              1813  AUTHOR_004
+5   BOOK_007                    Sense and Sensibility             Romance              1811  AUTHOR_004
+6   BOOK_008                         The Great Gatsby             Tragedy              1925  AUTHOR_005
+7   BOOK_009            One Hundred Years of Solitude       Magic Realism              1967  AUTHOR_006
+8   BOOK_010              Love in the Time of Cholera             Romance              1985  AUTHOR_006
+9   BOOK_011                        Things Fall Apart  Historical Fiction              1958  AUTHOR_007
+10  BOOK_012                        No Longer at Ease             Fiction              1960  AUTHOR_007
+11  BOOK_013            Chronicle of a Death Foretold             Novella              1981  AUTHOR_006
+2025-09-26 22:19:49.762 | INFO     | __main__:execute_sql_file:16 - Executed SQL file: sql_features/update_records.sql
+2025-09-26 22:19:49.762 | INFO     | __main__:<module>:57 - Executed update script
+2025-09-26 22:19:49.763 | INFO     | __main__:show_table:33 - Table 'authors'
+2025-09-26 22:19:49.766 | INFO     | __main__:show_table:34 - 
+     author_id                     name  birth_year nationality
+0  AUTHOR_001  Joanne Kathleen Rowling        1965     British
+1  AUTHOR_002            George Orwell        1903     British
+2  AUTHOR_003               Harper Lee        1926    American
+3  AUTHOR_004              Jane Austen        1775     British
+4  AUTHOR_005      F. Scott Fitzgerald        1896    American
+5  AUTHOR_006   Gabriel García Márquez        1927   Colombian
+6  AUTHOR_007            Chinua Achebe        1930    Nigerian
+2025-09-26 22:19:49.766 | INFO     | __main__:<module>:61 - Database setup completed successfully.
+2025-09-26 22:19:49.767 | INFO     | __main__:<module>:76 - Database connection closed
+2025-09-26 22:20:06.445 | INFO     | utils_logger:<module>:41 - Logging to file: logs\project_log.log
+2025-09-26 22:20:06.445 | INFO     | __main__:<module>:41 - Connected to SQLite database at data/books.db
+2025-09-26 22:20:06.445 | INFO     | __main__:execute_sql_file_show:17 - Executed SQL file: sql_queries/query_aggregation.sql 
+
+2025-09-26 22:20:06.445 | INFO     | __main__:execute_sql_file_show:18 - 
+    total_books
+0           12
+2025-09-26 22:20:06.445 | INFO     | __main__:<module>:44 - Executed query_aggregation script
+2025-09-26 22:20:06.458 | INFO     | __main__:execute_sql_file_show:17 - Executed SQL file: sql_queries/query_filter.sql 
+
+2025-09-26 22:20:06.461 | INFO     | __main__:execute_sql_file_show:18 - 
+     book_id                                    title    genre  publication_year   author_id
+0  BOOK_001    Harry Potter and the Sorcerer's Stone  Fantasy              1997  AUTHOR_001
+1  BOOK_002  Harry Potter and the Chamber of Secrets  Fantasy              1998  AUTHOR_001
+2025-09-26 22:20:06.462 | INFO     | __main__:<module>:47 - Executed query_filter script
+2025-09-26 22:20:06.462 | INFO     | __main__:execute_sql_file_show:17 - Executed SQL file: sql_queries/query_group_by.sql 
+
+2025-09-26 22:20:06.465 | INFO     | __main__:execute_sql_file_show:18 - 
+     author_id  book_count
+0  AUTHOR_001           2
+1  AUTHOR_002           1
+2  AUTHOR_003           1
+3  AUTHOR_004           2
+4  AUTHOR_005           1
+5  AUTHOR_006           3
+6  AUTHOR_007           2
+2025-09-26 22:20:06.465 | INFO     | __main__:<module>:50 - Executed query_group_by script
+2025-09-26 22:20:06.466 | INFO     | __main__:execute_sql_file_show:17 - Executed SQL file: sql_queries/query_join.sql 
+
+2025-09-26 22:20:06.469 | INFO     | __main__:execute_sql_file_show:18 - 
+      book_id                                    title  publication_year   author_id              author_name
+0   BOOK_001    Harry Potter and the Sorcerer's Stone              1997  AUTHOR_001  Joanne Kathleen Rowling
+1   BOOK_002  Harry Potter and the Chamber of Secrets              1998  AUTHOR_001  Joanne Kathleen Rowling
+2   BOOK_004                              Animal Farm              1945  AUTHOR_002            George Orwell
+3   BOOK_005                    To Kill a Mockingbird              1960  AUTHOR_003               Harper Lee
+4   BOOK_006                      Pride and Prejudice              1813  AUTHOR_004              Jane Austen
+5   BOOK_007                    Sense and Sensibility              1811  AUTHOR_004              Jane Austen
+6   BOOK_008                         The Great Gatsby              1925  AUTHOR_005      F. Scott Fitzgerald
+7   BOOK_009            One Hundred Years of Solitude              1967  AUTHOR_006   Gabriel García Márquez
+8   BOOK_010              Love in the Time of Cholera              1985  AUTHOR_006   Gabriel García Márquez
+9   BOOK_011                        Things Fall Apart              1958  AUTHOR_007            Chinua Achebe
+10  BOOK_012                        No Longer at Ease              1960  AUTHOR_007            Chinua Achebe
+11  BOOK_013            Chronicle of a Death Foretold              1981  AUTHOR_006   Gabriel García Márquez
+2025-09-26 22:20:06.469 | INFO     | __main__:<module>:53 - Executed query_join script
+2025-09-26 22:20:06.469 | INFO     | __main__:execute_sql_file_show:17 - Executed SQL file: sql_queries/query_sorting.sql 
+
+2025-09-26 22:20:06.475 | INFO     | __main__:execute_sql_file_show:18 - 
+      book_id                                    title               genre  publication_year   author_id
+0   BOOK_007                    Sense and Sensibility             Romance              1811  AUTHOR_004
+1   BOOK_006                      Pride and Prejudice             Romance              1813  AUTHOR_004
+2   BOOK_008                         The Great Gatsby             Tragedy              1925  AUTHOR_005
+3   BOOK_004                              Animal Farm    Political Satire              1945  AUTHOR_002
+4   BOOK_011                        Things Fall Apart  Historical Fiction              1958  AUTHOR_007
+5   BOOK_005                    To Kill a Mockingbird             Fiction              1960  AUTHOR_003
+6   BOOK_012                        No Longer at Ease             Fiction              1960  AUTHOR_007
+7   BOOK_009            One Hundred Years of Solitude       Magic Realism              1967  AUTHOR_006
+8   BOOK_013            Chronicle of a Death Foretold             Novella              1981  AUTHOR_006
+9   BOOK_010              Love in the Time of Cholera             Romance              1985  AUTHOR_006
+10  BOOK_001    Harry Potter and the Sorcerer's Stone             Fantasy              1997  AUTHOR_001
+11  BOOK_002  Harry Potter and the Chamber of Secrets             Fantasy              1998  AUTHOR_001
+2025-09-26 22:20:06.475 | INFO     | __main__:<module>:56 - Executed query_sorting script
+2025-09-26 22:20:06.476 | INFO     | __main__:<module>:59 - Database setup completed successfully.
+2025-09-26 22:20:06.476 | INFO     | __main__:<module>:74 - Database connection closed

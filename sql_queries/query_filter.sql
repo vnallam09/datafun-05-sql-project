@@ -1,0 +1,1 @@
+select * from books where author_id = "AUTHOR_001";

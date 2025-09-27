@@ -4,7 +4,7 @@ import sqlite3
 import pandas as pd
 from utils_logger import logger
 
-def execute_sql_file(conn, file_path):
+def execute_sql_file_show(conn, file_path):
     """Read and execute an SQL script file using the provided sqlite3 connection.
 
     Logs failures and re-raises exceptions so callers can decide how to handle them.
@@ -12,8 +12,11 @@ def execute_sql_file(conn, file_path):
     try:
         with open(file_path, 'r', encoding='utf-8') as f:
             sql_script = f.read()
-        conn.executescript(sql_script)
-        logger.info(f"Executed SQL file: {file_path}")
+        
+        df = pd.read_sql_query(sql_script, conn) 
+        logger.info(f"Executed SQL file: {file_path} \n")
+        logger.info(f"\n {df}")
+        
     except (sqlite3.DatabaseError, sqlite3.Error) as e:
         logger.exception(f"SQLite error executing '{file_path}': {e}")
         raise
@@ -22,18 +25,6 @@ def execute_sql_file(conn, file_path):
         raise
     except Exception as e:
         logger.exception(f"Unexpected error executing '{file_path}': {e}")
-        raise
-
-def show_table(conn, table_names):
-    """Log the row counts for the specified tables."""
-    try:
-        for table in table_names:
-            query = f"SELECT * FROM {table};"
-            df = pd.read_sql_query(query, conn)            
-            logger.info(f"Table '{table}'")
-            logger.info(f"\n {df}")
-    except Exception as e:
-        logger.exception(f"Error retrieving table: {e}")
         raise
 
 if __name__ == "__main__":
@@ -49,14 +40,21 @@ if __name__ == "__main__":
         conn = sqlite3.connect(sqlite_db)
         logger.info(f"Connected to SQLite database at {sqlite_db}")
 
-        execute_sql_file(conn, "sql_features/delete_records.sql")
-        logger.info("Executed DELETE script")
-        print(show_table(conn, ["books"]))
-        
-        execute_sql_file(conn, "sql_features/update_records.sql")
-        logger.info("Executed update script")
-        print(show_table(conn, ["authors"]))
+        execute_sql_file_show(conn, "sql_queries/query_aggregation.sql")
+        logger.info("Executed query_aggregation script")
 
+        execute_sql_file_show(conn, "sql_queries/query_filter.sql")
+        logger.info("Executed query_filter script")
+
+        execute_sql_file_show(conn, "sql_queries/query_group_by.sql")
+        logger.info("Executed query_group_by script")
+
+        execute_sql_file_show(conn, "sql_queries/query_join.sql")
+        logger.info("Executed query_join script")
+
+        execute_sql_file_show(conn, "sql_queries/query_sorting.sql")
+        logger.info("Executed query_sorting script")
+                
         conn.commit()
         logger.info("Database setup completed successfully.")
     except Exception:

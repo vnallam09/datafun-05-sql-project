@@ -31,7 +31,7 @@ def show_table(conn, table_names):
             query = f"SELECT * FROM {table};"
             df = pd.read_sql_query(query, conn)            
             logger.info(f"Table '{table}'")
-            logger.info(df)
+            logger.info(f"\n {df}")
     except Exception as e:
         logger.exception(f"Error retrieving table: {e}")
         raise
